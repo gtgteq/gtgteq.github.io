@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>&gt;&gt;=✍ - 日常作業をコマンドで行う理由から、キーボード操作中毒になるまで</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" integrity="sha384-5kGFOAqgEKnuF6c2jk2JANKHZgYVt38Wn2dVJENtq1EBCP54/1uzXU5mpxqL8WjN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pygments-css@1.0.0/friendly.css" integrity="sha384-ctb3oxMcjS7qFI/8h6gbA8aXLYepqLH/fJuUE0CrNOcM2mtT339FPmcvGadhF6Z/" crossorigin="anonymous">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="../../">&gt;&gt;=✍</a>
+          <a class="navbar-item" href="https://github.com/gtgteq">
+            <i class="fa fa-github" aria-hidden="true"></i>
+          </a>
+          <a class="navbar-item" href="https://twitter.com/gtgteq">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+          </a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <h1 class="title is-3">
+          日常作業をコマンドで行う理由から、キーボード操作中毒になるまで
+        </h1>
+        <div class="content">
+<article>
+  <div class="has-text-right">
+    <span>
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
+      2020-01-27
+    </span>
+    <span>
+      <i class="fa fa-refresh" aria-hidden="true"></i>
+      2020-01-30
+    </span>
+  </div>
+<p>GUIに対するCUIの利点とかの話をするつもりですが、再現性のひとことで片付いてしまいます。 CUI操作はキーボード操作に一般化できるので、その魅力も語ります。</p>
+<h2 class="subtitle is-4" id="gui">GUIが嫌い</h2>
+<p>マウスって疲れません？ 画面上のマウスポインタを移動してクリックしての繰り返しが典型的ですが、 マウスポインタの位置を毎回確認するためだけに、いちいち画面を見る必要があります。 このためだけにマウスを動かして、動いたマウスポインタでようやく視認が叶うことも。</p>
+<p>マウス操作は（キーボードと比較せずとも）再現性が皆無です。 何かしらの作業をスクリーンショットの連続で説明されると萎えますよね。 コマンドだとコピペ一発なのにとか考えたりするのも再現性の現れです。</p>
+<p>無駄な時間を極限まで減らすという意味でも、 マウスとキーボードを往復するよりは、キーボードだけで完結させるのが良いはずです。</p>
+<h2 class="subtitle is-4" id="cui">CUIが好き</h2>
+<p>コピペ一発もそうなんですが、シェルプロンプトで履歴が残せるのが本当に便利です。 この作業前にやったな、履歴辿るか。 zsh等履歴の頭出しが可能なシェルを使ってください。 zshだとデフォルトで<code>M-p</code>が<code>history-beginning-search-backword</code>に割り当てられています。</p>
+<p>zsh等のシェルはカスタマイズが超楽しいですね。 カスタマイズ自体を再現可能なものにする話はまた別に用意するつもりです。 （普通にdotfilesを用意するだけだとpowerline関係の引越しが面倒）</p>
+<p>コマンドは覚えるのが難しい？GUI操作を覚えるよりは楽でしょう。 ls, cd, vimで大抵の作業が実は完結します。vimは<code>i</code>と<code>Esc</code>をループして<code>:wq</code>です。 というか<a href="https://vim-jp.org/vimdoc-ja/usr_01.html#01.3">チュートリアル</a>こなしてください。ダメならnano。 <code>which</code>と<code>grep</code>を使いはじめたらプロです。使い方は次の1通りしかありませんがプロを名乗ってください。</p>
+<div class="codehilite"><pre><span></span>which <span class="o">(</span>コマンド名<span class="o">)</span>
+grep <span class="s1">'(検索語)'</span> -nR .
+</pre></div>
+
+<p>新しいコマンドの覚え方ですが、<code>man (コマンド名)</code>で使い方が出るので<code>q</code>で脱出してください。 ひとつのコマンドに対応する使い方なんて多くて2通りなので、 これだ！と思う使い方を履歴に保存してやりましょう。コマンド名以外は覚えなくていいですね。</p>
+<p><a href="https://www.openvim.com/">Interactive Vim tutorial</a></p>
+<h2 class="subtitle is-4" id="key">キーボード操作が大好き</h2>
+<p>まだ無駄があります。デスクトップ画面のウィンドウ操作、これもキーボードでできます。 タイル型ウィンドウマネージャで検索して下さい。私は<a href="https://i3wm.org/">i3</a>使ってます。</p>
+<p>ブラウザも諦めません、キー操作可能です。私は<a href="https://chrome.google.com/webstore/detail/cvim/ihlenndgcmojhcghmfjfneahoeklbjjh">cVim</a>を使ってます。 最近はキーボードショートカットが用意されたサイトも珍しくはありません。皆キーボード大好きなんですね。</p>
+<h2 class="subtitle is-4" id="map">キー配置まで弄っちゃう</h2>
+<p>この際なので諸悪の根源QWERTYも排除してしまいましょう。 そもそもQWERTY配列はタイプライター時代に入力を遅延させるため、わざと効率の悪い並び方になっています。</p>
+<p>cf.&nbsp;<a href="http://mkweb.bcgsc.ca/carpalx/" class="uri">http://mkweb.bcgsc.ca/carpalx/</a></p>
+<p>私はエセProgrammer-Dvorakを愛用しています。 普通のDvorakと比較して、<code>I</code>と<code>U</code>の位置を逆にしています。 vimで<code>I</code>キーを多用するのでホームポジションに移動。 <code>C-u</code>と<code>C-d</code>がカーソル上半分下半分移動に対応しているので対称性が確保されます。 数字より記号を打ち込む機会の方が多いと判断したので、Shiftを押さないと数字が打てないようにしてあります。</p>
+<div class="codehilite"><pre><span></span>@7315984026^
+$[{(+%&amp;*)}]#
+</pre></div>
+
+<p>数字リテラルなんてものは<code>0</code>と<code>1</code>とそれ以外ですから、この配置がおそらく正解でしょう。 数字キー列の中央はかなり遠いので、滅多に押さない数字と記号を割り当てています。</p>
+<p>私は特殊キーもかなり弄ってます。 Tab, CapsLock, Shift, Ctrl, Alt, Win, Menu. Zenkaku_Hankaku, Muhenkan, Henkan, Hiragana.</p>
+<p>CapsLockをEscapeに、左ShiftをCtrlに、左AltをBackSpaceに、MuhenkanをShiftに、HenkanをTabにしています。 気が向いたら設定ファイル晒します。</p>
+<p>特殊キーの配置を含めて変更するのはLinuxだとかなり簡単です。 xmodmapコマンドによる古い方法と、xkbによる新しい方法があります。</p>
+<p>cf.&nbsp;<a href="https://nixos.wiki/wiki/Keyboard_Layout_Customization" class="uri">https://nixos.wiki/wiki/Keyboard_Layout_Customization</a></p>
+<p>キー配置変更のデメリットは、QWERTY前提のショートカットに弱いことでしょう。 Dvorakはvimのキー配置とかlesskeyとかを<code>hjkl</code>でなく<code>htns</code>にしてやる必要があります。 <code>zxcv</code>とか<code>asd</code>とかは対応不可です。どうしてもというなら、何らかの切り替え機構を用意しましょう。</p>
+<h2 class="subtitle is-4" id="firmware">キーボード自体の話</h2>
+<p>米国キーボードを持て囃すような風潮がありますが、私は上記の理由で日本語キーボードを愛用しています。 親指付近のキー数が多いというのが主な理由ですね。印字はどうでもいいでしょ。</p>
+<p>私なんと<a href="https://ergodox-ez.com/">ErgoDox EZ</a>を所持しています。 ほぼ理想配置の分割キーボード、加えてキーごとに軸の変更が可能です。 キー配置がオープンソースなので、自分の指が過学習しても良いというのが安心ですね。 あんまり触れてないので、xmodmapから移行する序でにまた弄り倒してやろうかな。 （ErgoDoxがチョットでかいのでHelixが気になってる）</p>
+</article>
+
+        </div>
+      </div>
+    </main>
+    <footer class="footer"><div class="columns">
+      <div class="column">
+        <p>
+          Site proudly generated by
+          <a href="https://jaspervdj.be/hakyll">Hakyll</a>
+        </p>
+        <p>
+          <a href="https://github.com/gtgteq/gtgteq.github.io/issues">
+            Leave comment?
+          </a>
+        </p>
+      </div>
+      <div class="column has-text-right">
+        <p>
+          <a href="../../privacy-policy/">プライバシーポリシー</a>
+        </p>
+        <p>
+          &copy; 2020- gtgteq. All rights reserved.
+        </p>
+      </div>
+    </div></footer>
+  </body>
+</html>
