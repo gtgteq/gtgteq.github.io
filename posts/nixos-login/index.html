@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-157525082-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-157525082-1');
+</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>&gt;&gt;=✍ - Linuxログイン大全</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" integrity="sha384-5kGFOAqgEKnuF6c2jk2JANKHZgYVt38Wn2dVJENtq1EBCP54/1uzXU5mpxqL8WjN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pygments-css@1.0.0/friendly.css" integrity="sha384-ctb3oxMcjS7qFI/8h6gbA8aXLYepqLH/fJuUE0CrNOcM2mtT339FPmcvGadhF6Z/" crossorigin="anonymous">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="../../">&gt;&gt;=✍</a>
+          <a class="navbar-item" href="https://github.com/gtgteq">
+            <i class="fa fa-github" aria-hidden="true"></i>
+          </a>
+          <a class="navbar-item" href="https://twitter.com/gtgteq">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+          </a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <div class="content">
+<article>
+<h1 class="title is-3">
+  Linuxログイン大全
+</h1>
+<div class="has-text-right">
+  <span>
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    2020-02-06
+  </span>
+  <span>
+    <i class="fa fa-refresh" aria-hidden="true"></i>
+    2020-02-07
+  </span>
+</div>
+<p>Linuxインスタンスで設定できるログイン方法を全て列挙することを目標とした記事です。</p>
+<h2 class="subtitle is-4" id="auth">認証方法</h2>
+<h3 class="subtitle is-5" id="passwd">パスワード認証</h3>
+<p>普通にLinuxをインストールすると設定されるログイン方法。 文字列を記憶して、プロンプト上などに直接入力する。 ホストはハッシュ値を記憶しておき、入力文字列のハッシュ値と比較する。</p>
+<p>ユーザー情報が<code>/etc/passwd</code>、パスワードが<code>/etc/shadow</code>に格納される。</p>
+<h3 class="subtitle is-5" id="otp">OTP認証</h3>
+<p>One-Time Password、ワンタイムパスワード認証のこと。 2fa(two-factor authentication), mfa(multi-factor authentication)とも。 カウンタベースのOTPであるHOTP(Hash-based OTP)が<a href="https://www.ietf.org/rfc/rfc4226.txt">RFC4226</a>で、 タイマーベースのOTPであるTOTP(Time-based OTP)が<a href="https://www.ietf.org/rfc/rfc6238.txt">RFC6238</a>で オープンに策定されている。 認証はスマホアプリに表示されるコードを入力することで行うが、 アプリは上記の仕様を実装しているだけである。</p>
+<p>Linuxだとpam-google-authenticatorという名前で提供されている。 アプリは<a href="https://freeotp.github.io/">FreeOTP</a>とか色々あります。</p>
+<h3 class="subtitle is-5" id="token">トークン認証</h3>
+<p>yubikeyとか。</p>
+<h2 class="subtitle is-4" id="share">ログイン共通化</h2>
+<h3 class="subtitle is-5" id="nis">NIS</h3>
+<p>めっちゃ古いログイン共通化。 マスターの<code>/etc/passwd</code>を参照する。 <code>/etc/passwd</code>を更新する度に<code>make</code>が必要だったり。</p>
+<h3 class="subtitle is-5" id="ldap">LDAP</h3>
+<p>これも実はそこそこ古いログイン共通化。 Windows界隈だとActive Directoryの別名で呼ばれる。</p>
+<p>OpenLDAP2.4で<code>slapd.conf</code>による方式から、 設定まで含めた全てをLDAPのエントリとして管理する方式に変更された。</p>
+<h3 class="subtitle is-5" id="iam">IAM</h3>
+<p>PAMモジュールを提供しているという1点だけでGoogle OS Loginの採用が確定する。</p>
+<p><a href="https://cloud.google.com/compute/docs/oslogin?hl=ja" class="uri">https://cloud.google.com/compute/docs/oslogin?hl=ja</a></p>
+<p><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html" class="uri">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html</a></p>
+<h2 class="subtitle is-4" id="nixos">元ネタ</h2>
+<p><a href="https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/security/pam.nix" class="uri">https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/security/pam.nix</a></p>
+<p>サービスごとに各PAMモジュールのon/offを設定できる。</p>
+<div class="codehilite"><pre><span></span>security<span class="o">.</span>pam<span class="o">.</span>services<span class="o">.</span>gdm<span class="o">.</span>googleAuthenticator<span class="o">.</span><span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+security<span class="o">.</span>pam<span class="o">.</span>services<span class="o">.</span>lightdm<span class="o">.</span>googleAuthenticator<span class="o">.</span><span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+security<span class="o">.</span>pam<span class="o">.</span>services<span class="o">.</span>kdm<span class="o">.</span>googleAuthenticator<span class="o">.</span><span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+security<span class="o">.</span>pam<span class="o">.</span>services<span class="o">.</span>sddm<span class="o">.</span>googleAuthenticator<span class="o">.</span><span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+</pre></div>
+
+<div class="codehilite"><pre><span></span><span class="gp">$</span> nixos-option security.pam.services
+<span class="go">Value:</span>
+<span class="go">{</span>
+<span class="go">  chfn = {</span>
+<span class="go">    ...</span>
+<span class="go">  };</span>
+<span class="go">  chpasswd = {</span>
+<span class="go">    ...</span>
+<span class="go">  };</span>
+<span class="go">  ...</span>
+<span class="go">}</span>
+</pre></div>
+
+
+</article>
+        </div>
+      </div>
+    </main>
+    <footer class="footer"><div class="columns">
+      <div class="column">
+        <p>
+          Site proudly generated by
+          <a href="https://jaspervdj.be/hakyll">Hakyll</a>
+        </p>
+        <p>
+          <a href="https://github.com/gtgteq/gtgteq.github.io/issues">
+            Leave comment?
+          </a>
+        </p>
+      </div>
+      <div class="column has-text-right">
+        <p>
+          <a href="../../privacy-policy/">プライバシーポリシー</a>
+        </p>
+        <p>
+          &copy; 2020- gtgteq. All rights reserved.
+        </p>
+      </div>
+    </div></footer>
+  </body>
+</html>
