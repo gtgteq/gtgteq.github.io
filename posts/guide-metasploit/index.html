@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-157525082-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-157525082-1');
+</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>&gt;&gt;=✍ - Metasploit使ってみた</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" integrity="sha384-5kGFOAqgEKnuF6c2jk2JANKHZgYVt38Wn2dVJENtq1EBCP54/1uzXU5mpxqL8WjN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pygments-css@1.0.0/friendly.css" integrity="sha384-ctb3oxMcjS7qFI/8h6gbA8aXLYepqLH/fJuUE0CrNOcM2mtT339FPmcvGadhF6Z/" crossorigin="anonymous">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="../../">&gt;&gt;=✍</a>
+          <a class="navbar-item" href="https://github.com/gtgteq">
+            <i class="fa fa-github" aria-hidden="true"></i>
+          </a>
+          <a class="navbar-item" href="https://twitter.com/gtgteq">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+          </a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <div class="content">
+<article>
+<h1 class="title is-3">
+  Metasploit使ってみた
+</h1>
+<div class="has-text-right">
+  <span>
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    2020-02-14
+  </span>
+  <span>
+    <i class="fa fa-refresh" aria-hidden="true"></i>
+    2020-02-15
+  </span>
+</div>
+<p>RubyのキラーアプリはRailsじゃなくてMetasploitだと思います。</p>
+<h2 class="subtitle is-4" id="病的なインストールガイド">病的なインストールガイド</h2>
+<h3 class="subtitle is-5" id="postgresql">PostgreSQL</h3>
+<p>btrfsなら<code>install -d -o 71 -g 71 /var/lib/postgresql; chattr +C /var/lib/postgresql</code>でCoWを無効にしておく。 <code>71</code>は<code>postgres</code>のuid/gid。NixOSはuid/gidの対応を <a href="https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/misc/ids.nix">ids.nix</a> で与えている。</p>
+<div class="codehilite"><pre><span></span>services<span class="o">.</span><span class="ss">postgresql =</span> <span class="p">{</span>
+  <span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+  <span class="ss">package =</span> pkgs<span class="o">.</span>postgresql_11<span class="p">;</span>
+  <span class="ss">authentication =</span> lib<span class="o">.</span>mkForce <span class="s1">''</span>
+<span class="s1">    hostssl all all 127.0.0.1/32 cert clientcert=1</span>
+<span class="s1">    hostssl all all ::1/128 cert clientcert=1</span>
+<span class="s1">    local all postgres peer</span>
+<span class="s1">  ''</span><span class="p">;</span>
+  <span class="ss">extraConfig =</span> <span class="s1">''</span>
+<span class="s1">    ssl = on</span>
+<span class="s1">    ssl_ca_file = </span><span class="err">'</span><span class="s1">/var/lib/postgresql/ca.crt</span><span class="err">'</span><span class="s1"></span>
+<span class="s1">    ssl_cert_file = </span><span class="err">'</span><span class="s1">/var/lib/postgresql/localhost.crt</span><span class="err">'</span><span class="s1"></span>
+<span class="s1">    ssl_key_file = </span><span class="err">'</span><span class="s1">/var/lib/postgresql/localhost.key</span><span class="err">'</span><span class="s1"></span>
+<span class="s1">  ''</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+<h3 class="subtitle is-5" id="ssl-on-postgresql">SSL on PostgreSQL</h3>
+<p>パスワードの設定が嫌なので、SSL接続を設定する。 前節の<code>services.postgresql.authentication</code>(<code>pg_hba.conf</code>)はほぼSSL接続しか受け入れない。</p>
+<p>自己署名CAと証明書を用意する。 秘密鍵に対して署名要求(csr)を発行して署名の繰り返し。</p>
+<div class="codehilite"><pre><span></span>openssl ecparam -name secp521r1 -genkey -out ca.key
+openssl req -new -key ca.key -out ca.csr
+openssl x509 -req -days <span class="m">7300</span> -signkey ca.key -in ca.csr -out ca.crt
+
+openssl ecparam -name secp521r1 -genkey -out localhost.key
+openssl req -new -key localhost.key -out localhost.csr
+openssl x509 -req -days <span class="m">7300</span> -CA ca.crt -CAkey ca.key -CAcreateserial -in localhost.csr -out localhost.crt
+
+openssl ecparam -name secp521r1 -genkey -out user.key
+openssl req -new -key user.key -out user.csr
+openssl x509 -req -days <span class="m">7300</span> -CA ca.crt -CAkey ca.key -CAcreateserial -in user.csr -out user.crt
+</pre></div>
+
+<p><code>user.crt</code>のCN(Common Name)はPostgreSQLに接続するユーザ名と一致させておく。 <code>localhost.crt</code>のCNを<code>localhost</code>にしておくと<code>verify-full</code>すら可能。</p>
+<p>cf.&nbsp;<a href="https://ozuma.hatenablog.jp/entry/20130511/1368284304" class="uri">https://ozuma.hatenablog.jp/entry/20130511/1368284304</a></p>
+<p>cf.&nbsp;<a href="https://joelonsql.com/2013/04/27/securing-postgresql-using-hostssl-cert-clientcert1/" class="uri">https://joelonsql.com/2013/04/27/securing-postgresql-using-hostssl-cert-clientcert1/</a></p>
+<p>検算用コマンド。<code>csr</code>と<code>crt</code>は<code>file</code>コマンドでも確認できる。</p>
+<div class="codehilite"><pre><span></span>openssl ec -text -noout -in *.key
+openssl req -text -noout -in *.csr
+openssl x509 -text -noout -in *.crt
+openssl verify -CAfile ca.crt localhost.crt
+openssl verify -CAfile ca.crt user.crt
+</pre></div>
+
+<p><code>ca.{crt,key}</code>と<code>localhost.{crt,key}</code>を<code>/var/lib/postgresql</code>直下に、 <code>user.{crt,key}</code>を<code>~/.postgresql/user.{crt,key}</code>にでも配置する。</p>
+<p>先んじて<code>msf</code>ユーザと<code>msf</code>データベースを作成しておく。 <code>services.postgresql.ensure{Databases,Users}</code>でも多分できる。</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> sudo -u postgres -i
+<span class="go">postgres $ createuser --interactive</span>
+<span class="go">Enter name of role to add: msf</span>
+<span class="go">Shall the new role be a superuser? (y/n) n</span>
+<span class="go">Shall the new role be allowed to create databases? (y/n) n</span>
+<span class="go">Shall the new role be allowed to create more new roles? (y/n) n</span>
+<span class="go">postgres $ createdb msf</span>
+<span class="go">postgres $ exit</span>
+</pre></div>
+
+<p><code>postgres</code>というシステムユーザに1回でもログインしたくないなら、 CNを<code>postgres</code>にした<code>postgres.crt</code>を用意すると<code>psql</code>から設定できる。</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> <span class="nb">export</span> <span class="nv">PGSSLMODE</span><span class="o">=</span>verify-full
+<span class="gp">$</span> <span class="nb">export</span> <span class="nv">PGSSLCERT</span><span class="o">=</span>~/.postgresql/postgres.crt
+<span class="gp">$</span> <span class="nb">export</span> <span class="nv">PGSSLKEY</span><span class="o">=</span>~/.postgresql/postgres.key
+<span class="gp">$</span> <span class="nb">export</span> <span class="nv">PGSSLROOTCERT</span><span class="o">=</span>/var/lib/postgresql/ca.crt
+<span class="gp">$</span> psql -h localhost -p <span class="m">5432</span> -U postgres -d postgres
+<span class="go">psql (11.6)</span>
+<span class="go">SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)</span>
+<span class="go">Type &quot;help&quot; for help.</span>
+
+<span class="go">postgres=&gt; CREATE ROLE &lt;CN of user.crt&gt; INHERIT LOGIN;</span>
+<span class="go">CREATE ROLE</span>
+<span class="go">postgres=&gt; CREATE DATABASE msf;</span>
+<span class="go">CREATE DATABASE</span>
+<span class="go">postgres=&gt; \q</span>
+<span class="gp">$</span> <span class="nb">export</span> <span class="nv">PGSSLCERT</span><span class="o">=</span>~/.postgresql/user.crt
+<span class="gp">$</span> <span class="nb">export</span> <span class="nv">PGSSLKEY</span><span class="o">=</span>~/.postgresql/user.key
+<span class="gp">$</span> psql -h localhost -p <span class="m">5432</span> -U &lt;CN of user.crt&gt; -d msf
+<span class="go">psql (11.6)</span>
+<span class="go">SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)</span>
+<span class="go">Type &quot;help&quot; for help.</span>
+
+<span class="go">msf=&gt; \q</span>
+</pre></div>
+
+<p>ローカルに<code>msf</code>ユーザを作らず、パスワードも必要ないログインが設定できた。</p>
+<h3 class="subtitle is-5" id="metasploit">Metasploit</h3>
+<p>MetasploitはRailsのActiveRecordでDBに接続する。 ActiveRecordのPostgreSQL adapterはruby-pgを使っているので、libpqのオプションが使える。</p>
+<p><a href="https://www.postgresql.org/docs/current/libpq-connect.html" class="uri">https://www.postgresql.org/docs/current/libpq-connect.html</a></p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> cat ~/.msf4/database.yml
+<span class="go">production:</span>
+<span class="go">  adapter: postgresql</span>
+<span class="go">  database: msf</span>
+<span class="go">  username: &lt;CN of user.crt&gt;</span>
+<span class="go">  host: localhost</span>
+<span class="go">  port: 5432</span>
+<span class="go">  pool: 5</span>
+<span class="go">  timeout: 5</span>
+<span class="go">  sslmode: verify-full</span>
+<span class="go">  sslrootcert: /var/lib/postgresql/ca.crt</span>
+<span class="go">  sslcert: &lt;location of user.crt&gt;</span>
+<span class="go">  sslkey: &lt;location of user.key&gt;</span>
+</pre></div>
+
+<p>NixOSを使っているので、インストール自体は一発で完了。</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> nix-shell -p metasploit
+<span class="gp">$</span> msfconsole
+<span class="go">...</span>
+<span class="go">       =[ metasploit v5.0.45-dev                          ]</span>
+<span class="go">+ -- --=[ 1918 exploits - 1074 auxiliary - 330 post       ]</span>
+<span class="go">+ -- --=[ 556 payloads - 45 encoders - 10 nops            ]</span>
+<span class="go">+ -- --=[ 4 evasion                                       ]</span>
+
+<span class="go">msf5 &gt;</span>
+</pre></div>
+
+<p>これだけ頑張っても検索がチョット早くなるだけらしいですが。</p>
+
+</article>
+        </div>
+      </div>
+    </main>
+    <footer class="footer"><div class="columns">
+      <div class="column">
+        <p>
+          Site proudly generated by
+          <a href="https://jaspervdj.be/hakyll">Hakyll</a>
+        </p>
+        <p>
+          <a href="https://github.com/gtgteq/gtgteq.github.io/issues">
+            Leave comment?
+          </a>
+        </p>
+      </div>
+      <div class="column has-text-right">
+        <p>
+          <a href="../../privacy-policy/">プライバシーポリシー</a>
+        </p>
+        <p>
+          &copy; 2020- gtgteq. All rights reserved.
+        </p>
+      </div>
+    </div></footer>
+  </body>
+</html>
