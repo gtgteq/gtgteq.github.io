@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-157525082-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-157525082-1');
+</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>&gt;&gt;=✍ - 独自ドメイン取扱書</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" integrity="sha384-5kGFOAqgEKnuF6c2jk2JANKHZgYVt38Wn2dVJENtq1EBCP54/1uzXU5mpxqL8WjN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pygments-css@1.0.0/friendly.css" integrity="sha384-ctb3oxMcjS7qFI/8h6gbA8aXLYepqLH/fJuUE0CrNOcM2mtT339FPmcvGadhF6Z/" crossorigin="anonymous">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="../../">&gt;&gt;=✍</a>
+          <a class="navbar-item" href="https://github.com/gtgteq">
+            <i class="fa fa-github" aria-hidden="true"></i>
+          </a>
+          <a class="navbar-item" href="https://twitter.com/gtgteq">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+          </a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <div class="content">
+<article>
+<h1 class="title is-3">
+  独自ドメイン取扱書
+</h1>
+<div class="has-text-right">
+  <span>
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    2020-03-16
+  </span>
+  <span>
+    <i class="fa fa-refresh" aria-hidden="true"></i>
+    2020-03-16
+  </span>
+</div>
+<p>無料でドメインを取ったり，有料ドメイン取得サービスを比較したり．</p>
+<h2 class="subtitle is-4" id="無料ドメイン">無料ドメイン</h2>
+<p>自宅サーバなどで特に公開せずドメインだけが必要な場合，無料ドメインで十分．</p>
+<h3 class="subtitle is-5" id="nix">nix</h3>
+<div class="codehilite"><pre><span></span>services<span class="o">.</span><span class="ss">ddclient =</span> <span class="p">{</span>
+  <span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+  <span class="ss">domains =</span> <span class="p">[</span> <span class="s2">&quot;___.mooo.com&quot;</span> <span class="p">];</span>
+  <span class="ss">server =</span> <span class="s2">&quot;freedns.afraid.org&quot;</span><span class="p">;</span>
+  <span class="ss">protocol =</span> <span class="s2">&quot;freedns&quot;</span><span class="p">;</span>
+  <span class="ss">interval =</span> <span class="s2">&quot;360min&quot;</span><span class="p">;</span>
+  <span class="ss">quiet =</span> <span class="no">true</span><span class="p">;</span>
+  <span class="ss">username =</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+  <span class="ss">password =</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+<h3 class="subtitle is-5" id="一覧">一覧</h3>
+<ul>
+<li><a href="http://freedns.afraid.org/">FreeDNS</a></li>
+<li><a href="https://www.noip.com/support/knowledgebase/getting-started-with-no-ip-com/">NoIP</a></li>
+<li><a href="https://github.com/ddclient/ddclient" class="uri">https://github.com/ddclient/ddclient</a></li>
+<li><a href="https://help.ubuntu.com/community/DynamicDNS" class="uri">https://help.ubuntu.com/community/DynamicDNS</a></li>
+</ul>
+<h2 class="subtitle is-4" id="有料ドメイン">有料ドメイン</h2>
+<p>2020/03/16現在の価格です． 更新価格，単位はJPY/年．</p>
+<h3 class="subtitle is-5" id="google-domains">Google Domains</h3>
+<table style="width:18%;">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>com</td>
+<td>1400</td>
+</tr>
+<tr class="even">
+<td>net</td>
+<td>1400</td>
+</tr>
+<tr class="odd">
+<td>org</td>
+<td>1400</td>
+</tr>
+<tr class="even">
+<td>dev</td>
+<td>1400</td>
+</tr>
+<tr class="odd">
+<td>page</td>
+<td>1170</td>
+</tr>
+<tr class="even">
+<td>pw</td>
+<td>1050</td>
+</tr>
+</tbody>
+</table>
+<p>トータルだと最安のドメインが多い印象． 普通のドメインならココ一択と思われる． GSuiteとか使う企業は特に管理が楽そう．</p>
+<h3 class="subtitle is-5" id="お名前.com">お名前.com</h3>
+<p>新規料金だけ安くして更新料金で稼ぐモデルなので，よく見ると高い．</p>
+<h3 class="subtitle is-5" id="ムームードメイン">ムームードメイン</h3>
+<table style="width:16%;">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>io</td>
+<td>5980</td>
+</tr>
+</tbody>
+</table>
+<p>ioドメインが安い．</p>
+<h3 class="subtitle is-5" id="xdomain">Xdomain</h3>
+<table style="width:16%;">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>com</td>
+<td>1180</td>
+</tr>
+<tr class="even">
+<td>net</td>
+<td>1380</td>
+</tr>
+<tr class="odd">
+<td>org</td>
+<td>1380</td>
+</tr>
+</tbody>
+</table>
+<p>レンタルサーバが無料らしいのでそれと併せてならば． と思ってたけどcomは安い． netとorgは年20円のためにGoogleを離れる必要があるかどうか．</p>
+
+</article>
+        </div>
+      </div>
+    </main>
+    <footer class="footer"><div class="columns">
+      <div class="column">
+        <p>
+          Site proudly generated by
+          <a href="https://jaspervdj.be/hakyll">Hakyll</a>
+        </p>
+        <p>
+          <a href="https://github.com/gtgteq/gtgteq.github.io/issues">
+            Leave comment?
+          </a>
+        </p>
+      </div>
+      <div class="column has-text-right">
+        <p>
+          <a href="../../privacy-policy/">プライバシーポリシー</a>
+        </p>
+        <p>
+          &copy; 2020- gtgteq. All rights reserved.
+        </p>
+      </div>
+    </div></footer>
+  </body>
+</html>
