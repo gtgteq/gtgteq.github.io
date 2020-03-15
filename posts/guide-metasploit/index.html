@@ -86,8 +86,8 @@ openssl x509 -req -days <span class="m">7300</span> -CA ca.crt -CAkey ca.key -CA
 </pre></div>
 
 <p><code>user.crt</code>のCN(Common Name)はPostgreSQLに接続するユーザ名と一致させておく。 <code>localhost.crt</code>のCNを<code>localhost</code>にしておくと<code>verify-full</code>すら可能。</p>
-<p>cf.&nbsp;<a href="https://ozuma.hatenablog.jp/entry/20130511/1368284304" class="uri">https://ozuma.hatenablog.jp/entry/20130511/1368284304</a></p>
-<p>cf.&nbsp;<a href="https://joelonsql.com/2013/04/27/securing-postgresql-using-hostssl-cert-clientcert1/" class="uri">https://joelonsql.com/2013/04/27/securing-postgresql-using-hostssl-cert-clientcert1/</a></p>
+<p>cf. <a href="https://ozuma.hatenablog.jp/entry/20130511/1368284304" class="uri">https://ozuma.hatenablog.jp/entry/20130511/1368284304</a></p>
+<p>cf. <a href="https://joelonsql.com/2013/04/27/securing-postgresql-using-hostssl-cert-clientcert1/" class="uri">https://joelonsql.com/2013/04/27/securing-postgresql-using-hostssl-cert-clientcert1/</a></p>
 <p>検算用コマンド。<code>csr</code>と<code>crt</code>は<code>file</code>コマンドでも確認できる。</p>
 <div class="codehilite"><pre><span></span>openssl ec -text -noout -in *.key
 openssl req -text -noout -in *.csr

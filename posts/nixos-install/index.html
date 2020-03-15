@@ -76,7 +76,7 @@ sudo nixos-install --root /mnt --no-root-password
 </pre></div>
 
 <p><code>/mnt</code>以下に<code>/boot</code>など全てマウントした後<code>nixos-generate-config</code>すると<code>hardware.nix</code>が生成される。 UEFIから直接とかgrub経由でとかを<code>configuration.nix</code>に記述して<code>nixos-install</code>。 <code>--no-root-password</code>でDebian系列のようにrootをログイン不可にできる。</p>
-<p>cf.&nbsp;<a href="https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/graphical.nix" class="uri">https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/graphical.nix</a></p>
+<p>cf. <a href="https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/graphical.nix" class="uri">https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/graphical.nix</a></p>
 <p>起動はしたがXが立ち上がらない場合もやることは同じで、例えばsshから<code>configuration.nix</code>を調整すれば楽。</p>
 <h2 class="subtitle is-4" id="daily">日々のお手入れ</h2>
 <p>自動更新じみたもの。</p>
