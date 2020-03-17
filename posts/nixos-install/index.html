@@ -45,7 +45,7 @@
   </span>
   <span>
     <i class="fa fa-refresh" aria-hidden="true"></i>
-    2020-02-02
+    2020-03-18
   </span>
 </div>
 tl;dr
@@ -78,6 +78,7 @@ sudo nixos-install --root /mnt --no-root-password
 <p><code>/mnt</code>以下に<code>/boot</code>など全てマウントした後<code>nixos-generate-config</code>すると<code>hardware.nix</code>が生成される。 UEFIから直接とかgrub経由でとかを<code>configuration.nix</code>に記述して<code>nixos-install</code>。 <code>--no-root-password</code>でDebian系列のようにrootをログイン不可にできる。</p>
 <p>cf. <a href="https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/graphical.nix" class="uri">https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/graphical.nix</a></p>
 <p>起動はしたがXが立ち上がらない場合もやることは同じで、例えばsshから<code>configuration.nix</code>を調整すれば楽。</p>
+<p>Raspberry Piはこのページを参照． <a href="https://github.com/zupo/nix" class="uri">https://github.com/zupo/nix</a></p>
 <h2 class="subtitle is-4" id="daily">日々のお手入れ</h2>
 <p>自動更新じみたもの。</p>
 <div class="codehilite"><pre><span></span>system<span class="o">.</span>autoUpgrade<span class="o">.</span><span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
