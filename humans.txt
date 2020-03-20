@@ -1,0 +1,25 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+name: gtgteq
+site: https://gtgteq.github.io/
+twitter: gtgteq
+location: Japan
+
+# SITE
+
+software:
+- Hakyll <https://jaspervdj.be/hakyll/>
+- Pygments <https://pygments.org/>
+standards:
+- HTML5
+- CSS3
+- humans.txt <https://humanstxt.org/>
+components:
+- HTML5 boilerplate <https://html5boilerplate.com/>
+- Bulma <https://bulma.io/>
+- Font Awesome 4.7 <https://fontawesome.com/v4.7.0/>
+- MathJax <https://www.mathjax.org/>
+- Google Analytics <https://analytics.google.com/analytics/web/>
+- Google AdSense <https://www.google.com/adsense/start/>
