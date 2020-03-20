@@ -1,0 +1,12 @@
+{
+  "short_name": "gtgteq blog",
+  "name": ">>=\u270d - gtgteq blog",
+  "icons": [{
+    "src": "icon.png",
+    "type": "image/png",
+    "sizes": "192x192"
+  }],
+  "start_url": "/?utm_source=homescreen",
+  "background_color": "#f0f0f0",
+  "theme_color": "#f0f0f0"
+}
