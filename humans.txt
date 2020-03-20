@@ -2,6 +2,7 @@
 # The humans responsible & technology colophon
 
 # TEAM
+
 name: gtgteq
 site: https://gtgteq.github.io/
 twitter: gtgteq
@@ -16,6 +17,11 @@ standards:
 - HTML5
 - CSS3
 - humans.txt <https://humanstxt.org/>
+- robots.txt <https://www.robotstxt.org/>
+- webmanifest <https://developer.mozilla.org/ja/docs/Web/Manifest>
+- apple-touch-icon <https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html>
+- browserconfig.xml <https://msdn.microsoft.com/en-us/library/ie/dn455106.aspx>
+- favicon.ico
 components:
 - HTML5 boilerplate <https://html5boilerplate.com/>
 - Bulma <https://bulma.io/>
@@ -23,3 +29,4 @@ components:
 - MathJax <https://www.mathjax.org/>
 - Google Analytics <https://analytics.google.com/analytics/web/>
 - Google AdSense <https://www.google.com/adsense/start/>
+- Amazon Associates <https://affiliate.amazon.co.jp/>
