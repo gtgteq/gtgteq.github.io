@@ -49,7 +49,7 @@ if (document.location.hostname != 'localhost') {
   </span>
   <span>
     <i class="fa fa-refresh" aria-hidden="true"></i>
-    2020-03-18
+    2020-03-30
   </span>
 </div>
 tl;dr
@@ -67,7 +67,7 @@ Run <code>nixos-install</code>
 <h2 class="subtitle is-4" id="dest">インストール先</h2>
 <p>例えばVirtualBoxだとインストールせずともデスクトップ環境のイメージ（ovaファイル）が公式に用意されている。 クラウド上のホストにインストールする場合も、isoファイルが用意されている場合がある。 AWSとかGCPならNixOpsで直接デプロイすら可能。</p>
 <p>パーティションについて。<code>/boot</code>は512MiBあれば十分です。 <code>/nix</code>は20GiBはほしいような、100GiBあれば余裕。 無理にパーティションを分割する必要は無い。</p>
-<p><code>/mnt</code>以下に全てマウントした後、<code>nixos-generate-config --root /mnt</code>。 生成された<code>/mnt/etc/nixos/configuration.nix</code>を適宜書き換えて、<code>nixos-install</code>。</p>
+<p><code>/mnt</code>以下に全てマウントした後、<code>nixos-generate-config --root /mnt</code>。 生成された<code>/mnt/etc/nixos/configuration.nix</code>を適宜書き換えて、<code>nixos-install</code>。 LUKSを使うなら<code>hardware-configuration.nix</code>に鍵の情報が必要。</p>
 <h2 class="subtitle is-4" id="iso">インストール準備</h2>
 <p>LinuxだとisoファイルをUSBに<code>dd</code>で一発。起動できるようになる。</p>
 <div class="codehilite"><pre><span></span>sudo dd if=./nixos-*.iso of=/dev/sdb bs=1M status=progress
@@ -76,10 +76,10 @@ Run <code>nixos-install</code>
 <h2 class="subtitle is-4" id="install">インストール</h2>
 <p>マニュアル読みましょう。マジで全部書いてあります。 <a href="https://nixos.org/nixos/manual/" class="uri">https://nixos.org/nixos/manual/</a></p>
 <div class="codehilite"><pre><span></span>sudo nixos-generate-config --root /mnt
-sudo nixos-install --root /mnt --no-root-password
+sudo nixos-install --root /mnt --no-root-passwd
 </pre></div>
 
-<p><code>/mnt</code>以下に<code>/boot</code>など全てマウントした後<code>nixos-generate-config</code>すると<code>hardware.nix</code>が生成される。 UEFIから直接とかgrub経由でとかを<code>configuration.nix</code>に記述して<code>nixos-install</code>。 <code>--no-root-password</code>でDebian系列のようにrootをログイン不可にできる。</p>
+<p><code>/mnt</code>以下に<code>/boot</code>など全てマウントした後<code>nixos-generate-config</code>すると<code>hardware.nix</code>が生成される。 UEFIから直接とかgrub経由でとかを<code>configuration.nix</code>に記述して<code>nixos-install</code>。 <code>--no-root-passwd</code>でDebian系列のようにrootをログイン不可にできる。</p>
 <p>cf. <a href="https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/graphical.nix" class="uri">https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/graphical.nix</a></p>
 <p>起動はしたがXが立ち上がらない場合もやることは同じで、例えばsshから<code>configuration.nix</code>を調整すれば楽。</p>
 <p>Raspberry Piはこのページを参照． <a href="https://github.com/zupo/nix" class="uri">https://github.com/zupo/nix</a></p>
