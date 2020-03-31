@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>&gt;&gt;=&#9997; - gtgteq blog</title>
+    <link href="https://gtgteq.github.io/atom.xml" rel="self" />
+    <link href="https://gtgteq.github.io" />
+    <id>https://gtgteq.github.io/atom.xml</id>
+    <author>
+        <name>gtgteq</name>
+        <email>gtgteq.operator@gmail.com</email>
+    </author>
+    <updated>2020-01-08T00:00:00Z</updated>
+    <entry>
+    <title>何故NixOSなのか？</title>
+    <link href="https://gtgteq.github.io/posts/nixos-why/" />
+    <id>https://gtgteq.github.io/posts/nixos-why/</id>
+    <published>2020-01-08</published>
+    <updated>2020-01-08T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<p>筆者はNixOSというOSを日常的な場面でも愛用しています。それは何故か、お答えします。</p>
+]]></summary>
+</entry>
+<entry>
+    <title>日常作業をコマンドで行う理由から、キーボード操作中毒になるまで</title>
+    <link href="https://gtgteq.github.io/posts/misc-cui/" />
+    <id>https://gtgteq.github.io/posts/misc-cui/</id>
+    <published>2020-01-27</published>
+    <updated>2020-01-27T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<p>GUIに対するCUIの利点とかの話をするつもりですが、再現性のひとことで片付いてしまいます。 CUI操作はキーボード操作に一般化できるので、その魅力も語ります。</p>
+]]></summary>
+</entry>
+<entry>
+    <title>NixOSインストール案内</title>
+    <link href="https://gtgteq.github.io/posts/nixos-install/" />
+    <id>https://gtgteq.github.io/posts/nixos-install/</id>
+    <published>2020-01-27</published>
+    <updated>2020-01-27T00:00:00Z</updated>
+    <summary type="html"><![CDATA[tl;dr
+<ol>
+<li>
+Write your <code>configuration.nix</code>
+</li>
+<li>
+Copy it to <code>/etc/nixos/configuration.nix</code>
+</li>
+<li>
+Run <code>nixos-install</code>
+</li>
+</ol>
+]]></summary>
+</entry>
+<entry>
+    <title>Linuxログイン大全</title>
+    <link href="https://gtgteq.github.io/posts/nixos-login/" />
+    <id>https://gtgteq.github.io/posts/nixos-login/</id>
+    <published>2020-02-06</published>
+    <updated>2020-02-06T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<p>Linuxインスタンスで設定できるログイン方法を全て列挙することを目標とした記事です。</p>
+]]></summary>
+</entry>
+<entry>
+    <title>Metasploit使ってみた</title>
+    <link href="https://gtgteq.github.io/posts/guide-metasploit/" />
+    <id>https://gtgteq.github.io/posts/guide-metasploit/</id>
+    <published>2020-02-14</published>
+    <updated>2020-02-14T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<p>RubyのキラーアプリはRailsじゃなくてMetasploitだと思います。</p>
+]]></summary>
+</entry>
+<entry>
+    <title>独自ドメイン取扱書</title>
+    <link href="https://gtgteq.github.io/posts/guide-domain/" />
+    <id>https://gtgteq.github.io/posts/guide-domain/</id>
+    <published>2020-03-16</published>
+    <updated>2020-03-16T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<p>無料でドメインを取ったり，有料ドメイン取得サービスを比較したり．</p>
+]]></summary>
+</entry>
+<entry>
+    <title>数学，それ以前，それ以後</title>
+    <link href="https://gtgteq.github.io/posts/misc-math/" />
+    <id>https://gtgteq.github.io/posts/misc-math/</id>
+    <published>2020-03-17</published>
+    <updated>2020-03-17T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<p>私が得た数学の知見とオススメ書籍を公開してます． 受験数学についても少し．</p>
+]]></summary>
+</entry>
+
+</feed>
