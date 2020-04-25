@@ -16,7 +16,21 @@
     <published>2020-01-08</published>
     <updated>2020-01-08T00:00:00Z</updated>
     <summary type="html"><![CDATA[<p>筆者はNixOSというOSを日常的な場面でも愛用しています。それは何故か、お答えします。</p>
-]]></summary>
+<h2 class="subtitle is-4" id="windows">何故Windowsで満足しなかったのか？</h2>
+<p>起動しないからです。 Windowsをある程度長期間にわたって使った方ならこの感覚は分かって頂けるものと思います。</p>
+<p>Windowsのアップデート、放置する人に心当たりはありませんか？</p>
+<p>「重いから」という人は頭がXPで止まってるだけです。このご時世ですから、アップデートは必須ですよ。</p>
+<p>「動かなくなるから」必須と認識しつつも手が止まる人は大抵こっち。</p>
+<p>いや、本当に起動しなくなるんですよ。 悪名高い1803を筆頭に、多数の地雷が更新を自称して配布されていたのが実情です。</p>
+<h2 class="subtitle is-4" id="mac">何故Mac系列を触ろうともしなかったのか？</h2>
+<p>嫌いだからです。 Macなら安心？前節を読んだならそんな意見は言えないはずです。 クローズドソースなOSかつベンダーが更新を担っている以上、本質的な問題はWindowsと一緒ですよ。</p>
+<p>露骨な囲い込みも気持ち悪いですね。 ソフトウェアは勿論、Apple特有の端子とかいくつあるんですか。全部Type-Cになりましたよ。</p>
+<h2 class="subtitle is-4" id="nixos">何故NixOSに落ち着いたのか？</h2>
+<p>起動するからです。</p>
+<p>NixOSの更新ですが、現在起動している環境へのアクセスを保ったまま、次の環境へと移行してくれます。 ブートローダで前回の環境が選択できるんですよ。 これだけでほぼ常用が確定するんですが、パッケージの揃い具合も半端ではありません。 デスクトップ環境も安定してますし、起動時の挙動も痒い所に手が届きます。</p>
+<p>全て設定できます。失敗しても、起動はします。</p>
+<p>設定ファイルが1箇所に纏まっているので再現性が非常に高いだとか、 NixOpsでクラウドへのデプロイが容易極まりないだとか、 nix-shellでパッケージの試食が手放せなくなっただとか、 そういうオマケが付いてくるのはNixOSの設計が優れている点なのですが、 そんなこと考えるまでもなく、起動するという一点において、NixOSをオススメします。</p>
+<p>最後に。自作PCに載せるLinuxですが、是非NixOSを検討してください。 特に新しいCPUで組んだ場合が典型的ですが、ドライバが最新カーネルでのみ更新されることが多々あります。 他のLinuxより新しいカーネルがインストールされる傾向にありますし、何ならカーネルのバージョンも指定できます。 DebianよりもGentooよりも、新しいカーネルを簡単に設定できますよ。というかこの系列以外は手動ですよマジで。</p>]]></summary>
 </entry>
 <entry>
     <title>日常作業をコマンドで行う理由から、キーボード操作中毒になるまで</title>
@@ -25,7 +39,40 @@
     <published>2020-01-27</published>
     <updated>2020-01-27T00:00:00Z</updated>
     <summary type="html"><![CDATA[<p>GUIに対するCUIの利点とかの話をするつもりですが、再現性のひとことで片付いてしまいます。 CUI操作はキーボード操作に一般化できるので、その魅力も語ります。</p>
-]]></summary>
+<h2 class="subtitle is-4" id="gui">GUIが嫌い</h2>
+<p>マウスって疲れません？ 画面上のマウスポインタを移動してクリックしての繰り返しが典型的ですが、 マウスポインタの位置を毎回確認するためだけに、いちいち画面を見る必要があります。 このためだけにマウスを動かして、動いたマウスポインタでようやく視認が叶うことも。</p>
+<p>マウス操作は（キーボードと比較せずとも）再現性が皆無です。 何かしらの作業をスクリーンショットの連続で説明されると萎えますよね。 コマンドだとコピペ一発なのにとか考えたりするのも再現性の現れです。</p>
+<p>無駄な時間を極限まで減らすという意味でも、 マウスとキーボードを往復するよりは、キーボードだけで完結させるのが良いはずです。</p>
+<h2 class="subtitle is-4" id="cui">CUIが好き</h2>
+<p>コピペ一発もそうなんですが、シェルプロンプトで履歴が残せるのが本当に便利です。 この作業前にやったな、履歴辿るか。 zsh等履歴の頭出しが可能なシェルを使ってください。 zshだとデフォルトで<code>M-p</code>が<code>history-beginning-search-backword</code>に割り当てられています。</p>
+<p>zsh等のシェルはカスタマイズが超楽しいですね。 カスタマイズ自体を再現可能なものにする話はまた別に用意するつもりです。 （普通にdotfilesを用意するだけだとpowerline関係の引越しが面倒）</p>
+<p>コマンドは覚えるのが難しい？GUI操作を覚えるよりは楽でしょう。 ls, cd, vimで大抵の作業が実は完結します。vimは<code>i</code>と<code>Esc</code>をループして<code>:wq</code>です。 というか<a href="https://vim-jp.org/vimdoc-ja/usr_01.html#01.3">チュートリアル</a>こなしてください。ダメならnano。 <code>which</code>と<code>grep</code>を使いはじめたらプロです。使い方は次の1通りしかありませんがプロを名乗ってください。</p>
+<div class="codehilite"><pre><span></span>which <span class="o">(</span>コマンド名<span class="o">)</span>
+grep <span class="s1">'(検索語)'</span> -nR .
+</pre></div>
+
+<p>新しいコマンドの覚え方ですが、<code>man (コマンド名)</code>で使い方が出るので<code>q</code>で脱出してください。 ひとつのコマンドに対応する使い方なんて多くて2通りなので、 これだ！と思う使い方を履歴に保存してやりましょう。コマンド名以外は覚えなくていいですね。</p>
+<p><a href="https://www.openvim.com/">Interactive Vim tutorial</a></p>
+<h2 class="subtitle is-4" id="key">キーボード操作が大好き</h2>
+<p>まだ無駄があります。デスクトップ画面のウィンドウ操作、これもキーボードでできます。 タイル型ウィンドウマネージャで検索して下さい。私は<a href="https://i3wm.org/">i3</a>使ってます。</p>
+<p>ブラウザも諦めません、キー操作可能です。私は<a href="https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb">Vimium</a>を使ってます。 最近はキーボードショートカットが用意されたサイトも珍しくはありません。皆キーボード大好きなんですね。</p>
+<h2 class="subtitle is-4" id="map">キー配置まで弄っちゃう</h2>
+<p>この際なので諸悪の根源QWERTYも排除してしまいましょう。 そもそもQWERTY配列はタイプライター時代に入力を遅延させるため、わざと効率の悪い並び方になっています。</p>
+<p>cf. <a href="http://mkweb.bcgsc.ca/carpalx/" class="uri">http://mkweb.bcgsc.ca/carpalx/</a></p>
+<p>私はエセProgrammer-Dvorakを愛用しています。 普通のDvorakと比較して、<code>I</code>と<code>U</code>の位置を逆にしています。 vimで<code>I</code>キーを多用するのでホームポジションに移動。 <code>C-u</code>と<code>C-d</code>がカーソル上半分下半分移動に対応しているので対称性が確保されます。 数字より記号を打ち込む機会の方が多いと判断したので、Shiftを押さないと数字が打てないようにしてあります。</p>
+<div class="codehilite"><pre><span></span>@7315984026^
+$[{(+%&amp;*)}]#
+</pre></div>
+
+<p>数字リテラルなんてものは<code>0</code>と<code>1</code>とそれ以外ですから、この配置がおそらく正解でしょう。 数字キー列の中央はかなり遠いので、滅多に押さない数字と記号を割り当てています。</p>
+<p>私は特殊キーもかなり弄ってます。 Tab, CapsLock, Shift, Ctrl, Alt, Win, Menu. Zenkaku_Hankaku, Muhenkan, Henkan, Hiragana.</p>
+<p>CapsLockをEscapeに、左ShiftをCtrlに、左AltをBackSpaceに、MuhenkanをShiftに、HenkanをTabにしています。 気が向いたら設定ファイル晒します。</p>
+<p>特殊キーの配置を含めて変更するのはLinuxだとかなり簡単です。 xmodmapコマンドによる古い方法と、xkbによる新しい方法があります。</p>
+<p>cf. <a href="https://nixos.wiki/wiki/Keyboard_Layout_Customization" class="uri">https://nixos.wiki/wiki/Keyboard_Layout_Customization</a></p>
+<p>キー配置変更のデメリットは、QWERTY前提のショートカットに弱いことでしょう。 Dvorakはvimのキー配置とかlesskeyとかを<code>hjkl</code>でなく<code>htns</code>にしてやる必要があります。 <code>zxcv</code>とか<code>asd</code>とかは対応不可です。どうしてもというなら、何らかの切り替え機構を用意しましょう。</p>
+<h2 class="subtitle is-4" id="firmware">キーボード自体の話</h2>
+<p>米国キーボードを持て囃すような風潮がありますが、私は上記の理由で日本語キーボードを愛用しています。 親指付近のキー数が多いというのが主な理由ですね。印字はどうでもいいでしょ。</p>
+<p>私なんと<a href="https://ergodox-ez.com/">ErgoDox EZ</a>を所持しています。 ほぼ理想配置の分割キーボード、加えてキーごとに軸の変更が可能です。 キー配置がオープンソースなので、自分の指が過学習しても良いというのが安心ですね。 あんまり触れてないので、xmodmapから移行する序でにまた弄り倒してやろうかな。 （ErgoDoxがチョットでかいのでHelixが気になってる）</p>]]></summary>
 </entry>
 <entry>
     <title>NixOSインストール案内</title>
@@ -45,6 +92,46 @@ Copy it to <code>/etc/nixos/configuration.nix</code>
 Run <code>nixos-install</code>
 </li>
 </ol>
+<h2 class="subtitle is-4" id="dest">インストール先</h2>
+<p>例えばVirtualBoxだとインストールせずともデスクトップ環境のイメージ（ovaファイル）が公式に用意されている。 クラウド上のホストにインストールする場合も、isoファイルが用意されている場合がある。 AWSとかGCPならNixOpsで直接デプロイすら可能。</p>
+<p>パーティションについて。<code>/boot</code>は512MiBあれば十分です。 <code>/nix</code>は20GiBはほしいような、100GiBあれば余裕。 無理にパーティションを分割する必要は無い。</p>
+<p><code>/mnt</code>以下に全てマウントした後、<code>nixos-generate-config --root /mnt</code>。 生成された<code>/mnt/etc/nixos/configuration.nix</code>を適宜書き換えて、<code>nixos-install</code>。 LUKSを使うなら<code>hardware-configuration.nix</code>に鍵の情報が必要。</p>
+<h2 class="subtitle is-4" id="iso">インストール準備</h2>
+<p>LinuxだとisoファイルをUSBに<code>dd</code>で一発。起動できるようになる。</p>
+<div class="codehilite"><pre><span></span>sudo dd if=./nixos-*.iso of=/dev/sdb bs=1M status=progress
+</pre></div>
+
+<h2 class="subtitle is-4" id="install">インストール</h2>
+<p>マニュアル読みましょう。マジで全部書いてあります。 <a href="https://nixos.org/nixos/manual/" class="uri">https://nixos.org/nixos/manual/</a></p>
+<div class="codehilite"><pre><span></span>sudo nixos-generate-config --root /mnt
+sudo nixos-install --root /mnt --no-root-passwd
+</pre></div>
+
+<p><code>/mnt</code>以下に<code>/boot</code>など全てマウントした後<code>nixos-generate-config</code>すると<code>hardware.nix</code>が生成される。 UEFIから直接とかgrub経由でとかを<code>configuration.nix</code>に記述して<code>nixos-install</code>。 <code>--no-root-passwd</code>でDebian系列のようにrootをログイン不可にできる。</p>
+<p>cf. <a href="https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/graphical.nix" class="uri">https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/graphical.nix</a></p>
+<p>起動はしたがXが立ち上がらない場合もやることは同じで、例えばsshから<code>configuration.nix</code>を調整すれば楽。</p>
+<p>Raspberry Piはこのページを参照． <a href="https://github.com/zupo/nix" class="uri">https://github.com/zupo/nix</a></p>
+<h2 class="subtitle is-4" id="daily">日々のお手入れ</h2>
+<p>自動更新じみたもの。</p>
+<div class="codehilite"><pre><span></span>system<span class="o">.</span>autoUpgrade<span class="o">.</span><span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+</pre></div>
+
+<p>手動で更新するなら次のいずれか。</p>
+<div class="codehilite"><pre><span></span>sudo nixos-rebuild switch
+sudo nixos-rebuild switch --upgrade
+sudo nixos-rebuild <span class="nb">test</span>
+</pre></div>
+
+<h2 class="subtitle is-4" id="example">例</h2>
+<p>記事を作るまでもない例を並べておきます。</p>
+<p>ssh server</p>
+<div class="codehilite"><pre><span></span>services<span class="o">.</span><span class="ss">openssh =</span> <span class="p">{</span>
+  <span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+  <span class="ss">passwordAuthentication =</span> <span class="no">true</span><span class="p">;</span>
+  <span class="ss">permitRootLogin =</span> <span class="s2">&quot;prohibit-password&quot;</span><span class="p">;</span>
+  <span class="ss">forwardX11 =</span> <span class="no">true</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
 ]]></summary>
 </entry>
 <entry>
@@ -54,6 +141,46 @@ Run <code>nixos-install</code>
     <published>2020-02-06</published>
     <updated>2020-02-06T00:00:00Z</updated>
     <summary type="html"><![CDATA[<p>Linuxインスタンスで設定できるログイン方法を全て列挙することを目標とした記事です。</p>
+<h2 class="subtitle is-4" id="auth">認証方法</h2>
+<h3 class="subtitle is-5" id="passwd">パスワード認証</h3>
+<p>普通にLinuxをインストールすると設定されるログイン方法。 文字列を記憶して、プロンプト上などに直接入力する。 ホストはハッシュ値を記憶しておき、入力文字列のハッシュ値と比較する。</p>
+<p>ユーザー情報が<code>/etc/passwd</code>、パスワードが<code>/etc/shadow</code>に格納される。</p>
+<h3 class="subtitle is-5" id="otp">OTP認証</h3>
+<p>One-Time Password、ワンタイムパスワード認証のこと。 2fa(two-factor authentication), mfa(multi-factor authentication)とも。 カウンタベースのOTPであるHOTP(Hash-based OTP)が<a href="https://www.ietf.org/rfc/rfc4226.txt">RFC4226</a>で、 タイマーベースのOTPであるTOTP(Time-based OTP)が<a href="https://www.ietf.org/rfc/rfc6238.txt">RFC6238</a>で オープンに策定されている。 認証はスマホアプリに表示されるコードを入力することで行うが、 アプリは上記の仕様を実装しているだけである。</p>
+<p>Linuxだとpam-google-authenticatorという名前で提供されている。 アプリは<a href="https://freeotp.github.io/">FreeOTP</a>とか色々あります。</p>
+<h3 class="subtitle is-5" id="token">トークン認証</h3>
+<p>yubikeyとか。</p>
+<h2 class="subtitle is-4" id="share">ログイン共通化</h2>
+<h3 class="subtitle is-5" id="nis">NIS</h3>
+<p>めっちゃ古いログイン共通化。 マスターの<code>/etc/passwd</code>を参照する。 <code>/etc/passwd</code>を更新する度に<code>make</code>が必要だったり。</p>
+<h3 class="subtitle is-5" id="ldap">LDAP</h3>
+<p>これも実はそこそこ古いログイン共通化。 Windows界隈だとActive Directoryの別名で呼ばれる。</p>
+<p>OpenLDAP2.4で<code>slapd.conf</code>による方式から、 設定まで含めた全てをLDAPのエントリとして管理する方式に変更された。</p>
+<h3 class="subtitle is-5" id="iam">IAM</h3>
+<p>PAMモジュールを提供しているという1点だけでGoogle OS Loginの採用が確定する。</p>
+<p><a href="https://cloud.google.com/compute/docs/oslogin?hl=ja" class="uri">https://cloud.google.com/compute/docs/oslogin?hl=ja</a></p>
+<p><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html" class="uri">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html</a></p>
+<h2 class="subtitle is-4" id="nixos">元ネタ</h2>
+<p><a href="https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/security/pam.nix" class="uri">https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/security/pam.nix</a></p>
+<p>サービスごとに各PAMモジュールのon/offを設定できる。</p>
+<div class="codehilite"><pre><span></span>security<span class="o">.</span>pam<span class="o">.</span>services<span class="o">.</span>gdm<span class="o">.</span>googleAuthenticator<span class="o">.</span><span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+security<span class="o">.</span>pam<span class="o">.</span>services<span class="o">.</span>lightdm<span class="o">.</span>googleAuthenticator<span class="o">.</span><span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+security<span class="o">.</span>pam<span class="o">.</span>services<span class="o">.</span>kdm<span class="o">.</span>googleAuthenticator<span class="o">.</span><span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+security<span class="o">.</span>pam<span class="o">.</span>services<span class="o">.</span>sddm<span class="o">.</span>googleAuthenticator<span class="o">.</span><span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+</pre></div>
+
+<div class="codehilite"><pre><span></span><span class="gp">$</span> nixos-option security.pam.services
+<span class="go">Value:</span>
+<span class="go">{</span>
+<span class="go">  chfn = {</span>
+<span class="go">    ...</span>
+<span class="go">  };</span>
+<span class="go">  chpasswd = {</span>
+<span class="go">    ...</span>
+<span class="go">  };</span>
+<span class="go">  ...</span>
+<span class="go">}</span>
+</pre></div>
 ]]></summary>
 </entry>
 <entry>
@@ -63,7 +190,122 @@ Run <code>nixos-install</code>
     <published>2020-02-14</published>
     <updated>2020-02-14T00:00:00Z</updated>
     <summary type="html"><![CDATA[<p>RubyのキラーアプリはRailsじゃなくてMetasploitだと思います。</p>
-]]></summary>
+<h2 class="subtitle is-4" id="病的なインストールガイド">病的なインストールガイド</h2>
+<h3 class="subtitle is-5" id="postgresql">PostgreSQL</h3>
+<p>btrfsなら<code>install -d -o 71 -g 71 /var/lib/postgresql; chattr +C /var/lib/postgresql</code>でCoWを無効にしておく。 <code>71</code>は<code>postgres</code>のuid/gid。NixOSはuid/gidの対応を <a href="https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/misc/ids.nix">ids.nix</a> で与えている。</p>
+<div class="codehilite"><pre><span></span>services<span class="o">.</span><span class="ss">postgresql =</span> <span class="p">{</span>
+  <span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+  <span class="ss">package =</span> pkgs<span class="o">.</span>postgresql_11<span class="p">;</span>
+  <span class="ss">authentication =</span> lib<span class="o">.</span>mkForce <span class="s1">''</span>
+<span class="s1">    hostssl all all 127.0.0.1/32 cert clientcert=1</span>
+<span class="s1">    hostssl all all ::1/128 cert clientcert=1</span>
+<span class="s1">    local all postgres peer</span>
+<span class="s1">  ''</span><span class="p">;</span>
+  <span class="ss">extraConfig =</span> <span class="s1">''</span>
+<span class="s1">    ssl = on</span>
+<span class="s1">    ssl_ca_file = </span><span class="err">'</span><span class="s1">/var/lib/postgresql/ca.crt</span><span class="err">'</span><span class="s1"></span>
+<span class="s1">    ssl_cert_file = </span><span class="err">'</span><span class="s1">/var/lib/postgresql/localhost.crt</span><span class="err">'</span><span class="s1"></span>
+<span class="s1">    ssl_key_file = </span><span class="err">'</span><span class="s1">/var/lib/postgresql/localhost.key</span><span class="err">'</span><span class="s1"></span>
+<span class="s1">  ''</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+<h3 class="subtitle is-5" id="ssl-on-postgresql">SSL on PostgreSQL</h3>
+<p>パスワードの設定が嫌なので、SSL接続を設定する。 前節の<code>services.postgresql.authentication</code>(<code>pg_hba.conf</code>)はほぼSSL接続しか受け入れない。</p>
+<p>自己署名CAと証明書を用意する。 秘密鍵に対して署名要求(csr)を発行して署名の繰り返し。</p>
+<div class="codehilite"><pre><span></span>openssl ecparam -name secp521r1 -genkey -out ca.key
+openssl req -new -key ca.key -out ca.csr
+openssl x509 -req -days <span class="m">7300</span> -signkey ca.key -in ca.csr -out ca.crt
+
+openssl ecparam -name secp521r1 -genkey -out localhost.key
+openssl req -new -key localhost.key -out localhost.csr
+openssl x509 -req -days <span class="m">7300</span> -CA ca.crt -CAkey ca.key -CAcreateserial -in localhost.csr -out localhost.crt
+
+openssl ecparam -name secp521r1 -genkey -out user.key
+openssl req -new -key user.key -out user.csr
+openssl x509 -req -days <span class="m">7300</span> -CA ca.crt -CAkey ca.key -CAcreateserial -in user.csr -out user.crt
+</pre></div>
+
+<p><code>user.crt</code>のCN(Common Name)はPostgreSQLに接続するユーザ名と一致させておく。 <code>localhost.crt</code>のCNを<code>localhost</code>にしておくと<code>verify-full</code>すら可能。</p>
+<p>cf. <a href="https://ozuma.hatenablog.jp/entry/20130511/1368284304" class="uri">https://ozuma.hatenablog.jp/entry/20130511/1368284304</a></p>
+<p>cf. <a href="https://joelonsql.com/2013/04/27/securing-postgresql-using-hostssl-cert-clientcert1/" class="uri">https://joelonsql.com/2013/04/27/securing-postgresql-using-hostssl-cert-clientcert1/</a></p>
+<p>検算用コマンド。<code>csr</code>と<code>crt</code>は<code>file</code>コマンドでも確認できる。</p>
+<div class="codehilite"><pre><span></span>openssl ec -text -noout -in *.key
+openssl req -text -noout -in *.csr
+openssl x509 -text -noout -in *.crt
+openssl verify -CAfile ca.crt localhost.crt
+openssl verify -CAfile ca.crt user.crt
+</pre></div>
+
+<p><code>ca.{crt,key}</code>と<code>localhost.{crt,key}</code>を<code>/var/lib/postgresql</code>直下に、 <code>user.{crt,key}</code>を<code>~/.postgresql/user.{crt,key}</code>にでも配置する。</p>
+<p>先んじて<code>msf</code>ユーザと<code>msf</code>データベースを作成しておく。 <code>services.postgresql.ensure{Databases,Users}</code>でも多分できる。</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> sudo -u postgres -i
+<span class="go">postgres $ createuser --interactive</span>
+<span class="go">Enter name of role to add: msf</span>
+<span class="go">Shall the new role be a superuser? (y/n) n</span>
+<span class="go">Shall the new role be allowed to create databases? (y/n) n</span>
+<span class="go">Shall the new role be allowed to create more new roles? (y/n) n</span>
+<span class="go">postgres $ createdb msf</span>
+<span class="go">postgres $ exit</span>
+</pre></div>
+
+<p><code>postgres</code>というシステムユーザに1回でもログインしたくないなら、 CNを<code>postgres</code>にした<code>postgres.crt</code>を用意すると<code>psql</code>から設定できる。</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> <span class="nb">export</span> <span class="nv">PGSSLMODE</span><span class="o">=</span>verify-full
+<span class="gp">$</span> <span class="nb">export</span> <span class="nv">PGSSLCERT</span><span class="o">=</span>~/.postgresql/postgres.crt
+<span class="gp">$</span> <span class="nb">export</span> <span class="nv">PGSSLKEY</span><span class="o">=</span>~/.postgresql/postgres.key
+<span class="gp">$</span> <span class="nb">export</span> <span class="nv">PGSSLROOTCERT</span><span class="o">=</span>/var/lib/postgresql/ca.crt
+<span class="gp">$</span> psql -h localhost -p <span class="m">5432</span> -U postgres -d postgres
+<span class="go">psql (11.6)</span>
+<span class="go">SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)</span>
+<span class="go">Type &quot;help&quot; for help.</span>
+
+<span class="go">postgres=&gt; CREATE ROLE &lt;CN of user.crt&gt; INHERIT LOGIN;</span>
+<span class="go">CREATE ROLE</span>
+<span class="go">postgres=&gt; CREATE DATABASE msf;</span>
+<span class="go">CREATE DATABASE</span>
+<span class="go">postgres=&gt; \q</span>
+<span class="gp">$</span> <span class="nb">export</span> <span class="nv">PGSSLCERT</span><span class="o">=</span>~/.postgresql/user.crt
+<span class="gp">$</span> <span class="nb">export</span> <span class="nv">PGSSLKEY</span><span class="o">=</span>~/.postgresql/user.key
+<span class="gp">$</span> psql -h localhost -p <span class="m">5432</span> -U &lt;CN of user.crt&gt; -d msf
+<span class="go">psql (11.6)</span>
+<span class="go">SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)</span>
+<span class="go">Type &quot;help&quot; for help.</span>
+
+<span class="go">msf=&gt; \q</span>
+</pre></div>
+
+<p>ローカルに<code>msf</code>ユーザを作らず、パスワードも必要ないログインが設定できた。</p>
+<h3 class="subtitle is-5" id="metasploit">Metasploit</h3>
+<p>MetasploitはRailsのActiveRecordでDBに接続する。 ActiveRecordのPostgreSQL adapterはruby-pgを使っているので、libpqのオプションが使える。</p>
+<p><a href="https://www.postgresql.org/docs/current/libpq-connect.html" class="uri">https://www.postgresql.org/docs/current/libpq-connect.html</a></p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> cat ~/.msf4/database.yml
+<span class="go">production:</span>
+<span class="go">  adapter: postgresql</span>
+<span class="go">  database: msf</span>
+<span class="go">  username: &lt;CN of user.crt&gt;</span>
+<span class="go">  host: localhost</span>
+<span class="go">  port: 5432</span>
+<span class="go">  pool: 5</span>
+<span class="go">  timeout: 5</span>
+<span class="go">  sslmode: verify-full</span>
+<span class="go">  sslrootcert: /var/lib/postgresql/ca.crt</span>
+<span class="go">  sslcert: &lt;location of user.crt&gt;</span>
+<span class="go">  sslkey: &lt;location of user.key&gt;</span>
+</pre></div>
+
+<p>NixOSを使っているので、インストール自体は一発で完了。</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> nix-shell -p metasploit
+<span class="gp">$</span> msfconsole
+<span class="go">...</span>
+<span class="go">       =[ metasploit v5.0.45-dev                          ]</span>
+<span class="go">+ -- --=[ 1918 exploits - 1074 auxiliary - 330 post       ]</span>
+<span class="go">+ -- --=[ 556 payloads - 45 encoders - 10 nops            ]</span>
+<span class="go">+ -- --=[ 4 evasion                                       ]</span>
+
+<span class="go">msf5 &gt;</span>
+</pre></div>
+
+<p>これだけ頑張っても検索がチョット早くなるだけらしいですが。</p>]]></summary>
 </entry>
 <entry>
     <title>独自ドメイン取扱書</title>
@@ -72,7 +314,103 @@ Run <code>nixos-install</code>
     <published>2020-03-16</published>
     <updated>2020-03-16T00:00:00Z</updated>
     <summary type="html"><![CDATA[<p>無料でドメインを取ったり，有料ドメイン取得サービスを比較したり．</p>
-]]></summary>
+<h2 class="subtitle is-4" id="無料ドメイン">無料ドメイン</h2>
+<p>自宅サーバなどで特に公開せずドメインだけが必要な場合，無料ドメインで十分．</p>
+<h3 class="subtitle is-5" id="nix">nix</h3>
+<div class="codehilite"><pre><span></span>services<span class="o">.</span><span class="ss">ddclient =</span> <span class="p">{</span>
+  <span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+  <span class="ss">domains =</span> <span class="p">[</span> <span class="s2">&quot;___.mooo.com&quot;</span> <span class="p">];</span>
+  <span class="ss">server =</span> <span class="s2">&quot;freedns.afraid.org&quot;</span><span class="p">;</span>
+  <span class="ss">protocol =</span> <span class="s2">&quot;freedns&quot;</span><span class="p">;</span>
+  <span class="ss">interval =</span> <span class="s2">&quot;360min&quot;</span><span class="p">;</span>
+  <span class="ss">quiet =</span> <span class="no">true</span><span class="p">;</span>
+  <span class="ss">username =</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+  <span class="ss">password =</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+<h3 class="subtitle is-5" id="一覧">一覧</h3>
+<ul>
+<li><a href="https://www.dynu.com/">Dynu</a></li>
+<li><a href="https://freedns.afraid.org/">FreeDNS</a></li>
+<li><a href="https://www.noip.com/support/knowledgebase/getting-started-with-no-ip-com/">NoIP</a></li>
+<li><a href="https://github.com/ddclient/ddclient" class="uri">https://github.com/ddclient/ddclient</a></li>
+<li><a href="https://help.ubuntu.com/community/DynamicDNS" class="uri">https://help.ubuntu.com/community/DynamicDNS</a></li>
+</ul>
+<h2 class="subtitle is-4" id="有料ドメイン">有料ドメイン</h2>
+<p>2020/03/16現在の価格です． 更新価格，単位はJPY/年．</p>
+<h3 class="subtitle is-5" id="google-domains">Google Domains</h3>
+<table style="width:18%;">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>com</td>
+<td>1400</td>
+</tr>
+<tr class="even">
+<td>net</td>
+<td>1400</td>
+</tr>
+<tr class="odd">
+<td>org</td>
+<td>1400</td>
+</tr>
+<tr class="even">
+<td>dev</td>
+<td>1400</td>
+</tr>
+<tr class="odd">
+<td>page</td>
+<td>1170</td>
+</tr>
+<tr class="even">
+<td>pw</td>
+<td>1050</td>
+</tr>
+</tbody>
+</table>
+<p>トータルだと最安のドメインが多い印象． 普通のドメインならココ一択と思われる． GSuiteとか使う企業は特に管理が楽そう．</p>
+<h3 class="subtitle is-5" id="お名前.com">お名前.com</h3>
+<p>新規料金だけ安くして更新料金で稼ぐモデルなので，よく見ると高い．</p>
+<h3 class="subtitle is-5" id="ムームードメイン">ムームードメイン</h3>
+<table style="width:16%;">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>io</td>
+<td>5980</td>
+</tr>
+</tbody>
+</table>
+<p>ioドメインが安い．</p>
+<h3 class="subtitle is-5" id="xdomain">Xdomain</h3>
+<table style="width:16%;">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>com</td>
+<td>1180</td>
+</tr>
+<tr class="even">
+<td>net</td>
+<td>1380</td>
+</tr>
+<tr class="odd">
+<td>org</td>
+<td>1380</td>
+</tr>
+</tbody>
+</table>
+<p>レンタルサーバが無料らしいのでそれと併せてならば． と思ってたけどcomは安い． netとorgは年20円のためにGoogleを離れる必要があるかどうか．</p>]]></summary>
 </entry>
 <entry>
     <title>数学，それ以前，それ以後</title>
@@ -81,7 +419,125 @@ Run <code>nixos-install</code>
     <published>2020-03-17</published>
     <updated>2020-03-17T00:00:00Z</updated>
     <summary type="html"><![CDATA[<p>私が得た数学の知見とオススメ書籍を公開してます． 受験数学についても少し．</p>
-]]></summary>
+<h2 class="subtitle is-4" id="数学それ以前">数学，それ以前</h2>
+<p>数学は言語である． 言語なので意味を持つが，言語だからこそ表現ができる．</p>
+<p>数学とは，記号に一定の意味を持たせつつ，同値変形など客観的な論理に基づいて， 新たな美しい知見を獲得する知的生産行動と（今適当に）定義できる．</p>
+<p>数学ができない人は次のうちどちらかに該当する．</p>
+<ul>
+<li>「数学」という分野における，記号に持たせる一定の意味を見出せない．</li>
+<li>「美しい」がそもそも主観的なので，数学に意義が見出せない．</li>
+</ul>
+<p>前者は数学の命題を音読することでほぼ解決できる． 基本的に全ての記号が音読できる． 特に英語の数学本だと数式が文章の中に組み込まれている． 音読することで，自分の答案のデバッグなり検算なりが容易になる．</p>
+<p>後者は数学が魅せる幅広さを教育によって弊害されているので， 誰か数学のひとに数学を伝染して貰おう．というか数学Youtuberでも見てろ． 微積と代数だけが数学じゃないよ．</p>
+<p>ひとつ，私から数学を学ぶ動機のようなものを提供しよう． コンピュータのプログラムは機械語をいかに簡単に書くかを競う場ではない． 関数型言語を用いるだけで，定義によって正しいプログラムを直観的に書くことができる． この言語仕様がある意味で基づくのが，数学というわけである． 特に<a href="https://hackage.haskell.org/package/lens">lens</a>パッケージ （最近は<a href="https://hackage.haskell.org/package/optics">optics</a>パッケージになるのかな） は関数型言語の美しさの結晶ともいえよう．</p>
+<p>それと，関数は数学を学ぶうえで非常に重要な概念である． 特に高階関数を認識できると，理解がスムーズになること間違いない． 次点で<span class="math inline">∀</span>と<span class="math inline">∃</span>の2記号かな．</p>
+<p>高階関数は難しくない．例えば総和を表す<span class="math inline">∑</span>記号だが， これは関数を引数にとって，変数を動かして関数で写像した値を全て足し合わせるという意味である． この「関数を引数にとる」のが高階関数である．微分積分も高階関数といえる．</p>
+<p>添字も関数で，グラフも変数とそれを関数で写像した値を同時にプロットしているだけ． それどころか変数すら関数である．代入のために議論に穴を開けておき，評価を遅延させている． あらゆる概念が関数でひとまとめにできる．</p>
+<h2 class="subtitle is-4" id="受験数学について">受験数学について</h2>
+<p>あの範囲は文科省が定めたものではなく，国際数学オリンピックを元ネタにして何年かに1回微妙に摂動させている． 何年生で習う数学とかいう区分に意味は無いので，さっさと先取りした方が良い． 数学は言語なので語彙を増やすのが先決である．</p>
+<p>受験で必要以上の高得点をとることは即ち過学習であり，本来咎められるべきである． 近年は少子化ゆえ，東大京大だろうが数学さえ出来れば入学は可能（医学部は知らん）なので， 数学1点突破でも良いかもしれない． というか私は結果的にだがそうなった． 数学やると物理が自動的に付いてくるのも良い．</p>
+<p>それ以外の教科で使えそうなリンク集</p>
+<ul>
+<li>国語：<a href="https://ncode.syosetu.com/s8108e/" class="uri">https://ncode.syosetu.com/s8108e/</a></li>
+</ul>
+<p>まあ受験なので，結果が出ない事なんぞはザラです． そんな時は自分にこう問うてみてください．受け売りですが．</p>
+<ul>
+<li>「その逆境はあなたの人生でどんな意味を持つのか？」</li>
+</ul>
+<h2 class="subtitle is-4" id="数学それ以後">数学，それ以後</h2>
+<p>研究まで行かないでも，今の位置からちょっとステップアップした勉強がしたい人に向けて， 私がオススメする書籍を挙げていきます．</p>
+<h3 class="subtitle is-5" id="新物理入門駿台受験シリーズ"><a href="https://amzn.to/33ve0rV">新・物理入門（駿台受験シリーズ）</a></h3>
+<p>数学1点突破のための本．高校物理を微積で解く．例題は少なめ．</p>
+<h3 class="subtitle is-5" id="mathematics-for-physicists-dover-books-physics"><a href="https://amzn.to/39Y6hVQ">Mathematics for Physicists (Dover Books Physics)</a></h3>
+<p>大学1年の数学の後ぐらい． 複素関数論，線形代数，関数解析，微分方程式． 線形代数のベクトルがブラケット形式だったりする愉快な本．例題は少なめ．</p>
+<h2 class="subtitle is-4" id="リンク集">リンク集</h2>
+<ul>
+<li><a href="https://tauday.com/tau-manifesto">The Tau Manifesto</a></li>
+</ul>]]></summary>
+</entry>
+<entry>
+    <title>Android機セットアップ記</title>
+    <link href="https://gtgteq.github.io/posts/guide-android/" />
+    <id>https://gtgteq.github.io/posts/guide-android/</id>
+    <published>2020-04-25</published>
+    <updated>2020-04-25T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<p>LineageOSが17あたりで生態系をかなり変えたように感じたのでメモします． ビルドはしません．</p>
+<h2 class="subtitle is-4" id="prepare">準備</h2>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> grep adb /etc/nixos/configuration.nix
+<span class="go">  program.adb.enable = true;</span>
+</pre></div>
+
+<p>操作するユーザを<code>adbusers</code>グループに所属させておく．</p>
+<h2 class="subtitle is-4" id="unlock">OEM unlock</h2>
+<p>一発目から保証が溶けるような内容なので以降は自己責任．</p>
+<ul>
+<li><a href="https://www.cyanogenmods.org/forums/topic/unlock-bootloader-android-phone-using-fastboot/" class="uri">https://www.cyanogenmods.org/forums/topic/unlock-bootloader-android-phone-using-fastboot/</a></li>
+</ul>
+<p>メーカーごとに方法が用意されている． WiFi版とLTE版はアンロックの方法が異なる場合が殆どなので注意，というか大抵は別の型番という扱い．</p>
+<p>筆者が見たことあるアンロック方法を紹介．</p>
+<ul>
+<li><code>fastboot oem unlock</code></li>
+<li>WiFi接続後，開発者オプションにOEM unlockが現れる．</li>
+<li>webサイトで製品番号を登録するとアンロック用のコードが送付される．</li>
+<li>電卓に特定のコードを入力するとデバッグ用メニューが現れる．</li>
+</ul>
+<h2 class="subtitle is-4" id="install">Installing Android OS</h2>
+<h3 class="subtitle is-5" id="twrp">TWRP</h3>
+<p><a href="https://twrp.me/Devices/" class="uri">https://twrp.me/Devices/</a> に製品名がヒットすれば公式サポートあり． 無くともxda-developers.comに独自ビルドが落ちてることが多いので大抵の機器にインストールできる．</p>
+<p>最近の製品だとチェックサム等のロックがかかっていることがあるので，頑張って注意書きを解読する． なんだかんだxda-developers.comの情報が最新かつ正しい場合が多い．</p>
+<h3 class="subtitle is-5" id="lineageos_old">LineageOS（昔）</h3>
+<p><a href="https://download.lineageos.org/">LineageOS本体</a>、<a href="https://opengapps.org/">OpenGApps</a>、 <a href="https://download.lineageos.org/extras">addonsu</a>、<a href="https://forum.xda-developers.com/showthread.php?t=3034811">Xposed</a> の順でzipファイルをインストールすればok．</p>
+<h3 class="subtitle is-5" id="lineageos_new">LineageOS（今）</h3>
+<p>rootがMagisk推奨になったり，Xposedが対応してなかったり． Android9以上だとXposedがMagisk moduleとしてリリースされている．</p>
+<p><a href="https://www.cyanogenmods.org/download-lineageos-17/">LineageOS 17.1</a>， <a href="https://opengapps.org/">OpenGApps</a>， <a href="https://github.com/topjohnwu/Magisk/releases">Magisk Manager、Magisk</a>， <a href="https://github.com/RikkaApps/Riru/releases">Riru-Core</a>， <a href="https://github.com/ElderDrivers/EdXposed/releases">EdXposed</a> の順になる． EdXposedのYAHFAがつい先日Android10に対応した．</p>
+<h3 class="subtitle is-5" id="lineageos_next">LineageOS（次）</h3>
+<p><a href="https://twrp.me/site/update/2019/10/23/twrp-and-android-10.html" class="uri">https://twrp.me/site/update/2019/10/23/twrp-and-android-10.html</a> この記事を読む限りでは，Android10がプリインストールされたマシンだとカスタムROMのインストール方法が異なるらしい． 現にTWRPが未だAndroid10に対応していない．</p>
+<h2 class="subtitle is-4" id="app">アプリ</h2>
+<ul>
+<li>SuperSU, Xposed / Magisk Manager, EdXposed Manager</li>
+<li>andOTP / FreeOTP</li>
+<li>DroidCam, WiFiAudio</li>
+<li>Nova Launcher</li>
+<li>AIMP, Firefox, Syncthing, X-plore</li>
+<li>Discord, Reddit, Slack, Twitter</li>
+<li>Amazon, Gmail, YouTube</li>
+</ul>
+<h2 class="subtitle is-4" id="devices">個別事例</h2>
+<h3 class="subtitle is-5" id="blueline">Google Pixel 3</h3>
+<ul>
+<li><a href="https://forum.xda-developers.com/pixel-3-xl/development/rom-lineage-17-0-pixel-3-xl-blueline-t4010943" class="uri">https://forum.xda-developers.com/pixel-3-xl/development/rom-lineage-17-0-pixel-3-xl-blueline-t4010943</a></li>
+</ul>
+<p>現時点でTWRPがAndroid10に対応していないので，独自リカバリを<code>boot</code>に焼いた後sideloadでインストール． Magiskについても書かれているが，zipファイルをsideloadしてやってもインストールできた．後で少々怒られて再起動する． Magiskさえインストールできれば，riruとEdXposedはzipを直接インストールせずともMagisk Manager内で完結できる．</p>
+<p>以下は試したもののLineageOSのインストールには繋がらなかった．</p>
+<ul>
+<li><a href="https://twrp.me/google/googlepixel3.html" class="uri">https://twrp.me/google/googlepixel3.html</a></li>
+<li><a href="https://forum.xda-developers.com/showpost.php?p=79995400&amp;postcount=1143" class="uri">https://forum.xda-developers.com/showpost.php?p=79995400&amp;postcount=1143</a></li>
+<li><a href="https://www.cyanogenmods.org/pixel-3-lineageos-17/" class="uri">https://www.cyanogenmods.org/pixel-3-lineageos-17/</a></li>
+</ul>
+<p>TWRPはAndroid9でないと起動しないのでダウングレードしておく． <code>$TMPDIR</code>の容量が十分でない場合にStock ROMの<code>flash-all.sh</code>を実行すると<code>No space left on device</code>が出る． <code>vendor_a</code>が<code>Error reading sparse file</code>を返す場合はケーブルを変えてみる．</p>
+<ul>
+<li><a href="https://developers.google.com/android/images" class="uri">https://developers.google.com/android/images</a></li>
+<li><a href="https://android.stackexchange.com/questions/203779/cant-reinstall-nothing-to-system" class="uri">https://android.stackexchange.com/questions/203779/cant-reinstall-nothing-to-system</a></li>
+</ul>
+<h3 class="subtitle is-5" id="gts4lvwifi">Samsung Galaxy Tab S5e WiFi</h3>
+<ul>
+<li><a href="https://forum.xda-developers.com/tab-s5e/development/rom-lineageos-17-0-t3972371" class="uri">https://forum.xda-developers.com/tab-s5e/development/rom-lineageos-17-0-t3972371</a></li>
+<li><a href="https://twrp.me/samsung/samsunggalaxytabs5ewifi.html" class="uri">https://twrp.me/samsung/samsunggalaxytabs5ewifi.html</a></li>
+</ul>
+<h3 class="subtitle is-5" id="lux">Motorola Moto X Play</h3>
+<ul>
+<li><a href="https://wiki.lineageos.org/devices/lux" class="uri">https://wiki.lineageos.org/devices/lux</a></li>
+</ul>
+<h3 class="subtitle is-5" id="scale">Huawei Y6 (SCL-L02)</h3>
+<ul>
+<li><a href="https://forum.xda-developers.com/huawei-y6/development/rom-lineageos-14-1-huawei-y6-t3541747" class="uri">https://forum.xda-developers.com/huawei-y6/development/rom-lineageos-14-1-huawei-y6-t3541747</a></li>
+</ul>
+<h3 class="subtitle is-5" id="flo">Google Nexus 7 (2013) WiFi</h3>
+<ul>
+<li><a href="https://wiki.lineageos.org/devices/flo" class="uri">https://wiki.lineageos.org/devices/flo</a></li>
+<li><a href="https://forum.xda-developers.com/nexus-7-2013/orig-development/official-cyanogenmod-14-1-nightlies-flo-t3502494" class="uri">https://forum.xda-developers.com/nexus-7-2013/orig-development/official-cyanogenmod-14-1-nightlies-flo-t3502494</a></li>
+<li><a href="https://twrp.me/asus/asusnexus72013wifi.html" class="uri">https://twrp.me/asus/asusnexus72013wifi.html</a></li>
+</ul>]]></summary>
 </entry>
 
 </feed>

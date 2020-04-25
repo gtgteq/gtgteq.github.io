@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-157525082-1"></script>
+<script>
+if (document.location.hostname != 'localhost') {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-157525082-1');
+}
+</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f0f0f0">
+    <title>&gt;&gt;=✍ - Android機セットアップ記</title>
+    <link rel="alternate" href="../../atom.xml" type="application/atom+xml" title="gtgteq blog Atom Feed">
+    <link rel="apple-touch-icon" href="../../icon.png">
+    <link rel="author" href="../../humans.txt" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" integrity="sha384-5kGFOAqgEKnuF6c2jk2JANKHZgYVt38Wn2dVJENtq1EBCP54/1uzXU5mpxqL8WjN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pygments-css@1.0.0/friendly.css" integrity="sha384-ctb3oxMcjS7qFI/8h6gbA8aXLYepqLH/fJuUE0CrNOcM2mtT339FPmcvGadhF6Z/" crossorigin="anonymous">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="../../">&gt;&gt;=✍</a>
+          <a class="navbar-item" href="https://github.com/gtgteq">
+            <i class="fa fa-github" aria-hidden="true"></i>
+          </a>
+          <a class="navbar-item" href="https://twitter.com/gtgteq">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+          </a>
+          <a class="navbar-item" href="../../atom.xml">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+          </a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <div class="content">
+<article>
+<h1 class="title is-3">
+  Android機セットアップ記
+</h1>
+<div class="has-text-right">
+  <span>
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    2020-04-25
+  </span>
+  <span>
+    <i class="fa fa-refresh" aria-hidden="true"></i>
+    2020-04-25
+  </span>
+</div>
+<p>LineageOSが17あたりで生態系をかなり変えたように感じたのでメモします． ビルドはしません．</p>
+<h2 class="subtitle is-4" id="prepare">準備</h2>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> grep adb /etc/nixos/configuration.nix
+<span class="go">  program.adb.enable = true;</span>
+</pre></div>
+
+<p>操作するユーザを<code>adbusers</code>グループに所属させておく．</p>
+<h2 class="subtitle is-4" id="unlock">OEM unlock</h2>
+<p>一発目から保証が溶けるような内容なので以降は自己責任．</p>
+<ul>
+<li><a href="https://www.cyanogenmods.org/forums/topic/unlock-bootloader-android-phone-using-fastboot/" class="uri">https://www.cyanogenmods.org/forums/topic/unlock-bootloader-android-phone-using-fastboot/</a></li>
+</ul>
+<p>メーカーごとに方法が用意されている． WiFi版とLTE版はアンロックの方法が異なる場合が殆どなので注意，というか大抵は別の型番という扱い．</p>
+<p>筆者が見たことあるアンロック方法を紹介．</p>
+<ul>
+<li><code>fastboot oem unlock</code></li>
+<li>WiFi接続後，開発者オプションにOEM unlockが現れる．</li>
+<li>webサイトで製品番号を登録するとアンロック用のコードが送付される．</li>
+<li>電卓に特定のコードを入力するとデバッグ用メニューが現れる．</li>
+</ul>
+<h2 class="subtitle is-4" id="install">Installing Android OS</h2>
+<h3 class="subtitle is-5" id="twrp">TWRP</h3>
+<p><a href="https://twrp.me/Devices/" class="uri">https://twrp.me/Devices/</a> に製品名がヒットすれば公式サポートあり． 無くともxda-developers.comに独自ビルドが落ちてることが多いので大抵の機器にインストールできる．</p>
+<p>最近の製品だとチェックサム等のロックがかかっていることがあるので，頑張って注意書きを解読する． なんだかんだxda-developers.comの情報が最新かつ正しい場合が多い．</p>
+<h3 class="subtitle is-5" id="lineageos_old">LineageOS（昔）</h3>
+<p><a href="https://download.lineageos.org/">LineageOS本体</a>、<a href="https://opengapps.org/">OpenGApps</a>、 <a href="https://download.lineageos.org/extras">addonsu</a>、<a href="https://forum.xda-developers.com/showthread.php?t=3034811">Xposed</a> の順でzipファイルをインストールすればok．</p>
+<h3 class="subtitle is-5" id="lineageos_new">LineageOS（今）</h3>
+<p>rootがMagisk推奨になったり，Xposedが対応してなかったり． Android9以上だとXposedがMagisk moduleとしてリリースされている．</p>
+<p><a href="https://www.cyanogenmods.org/download-lineageos-17/">LineageOS 17.1</a>， <a href="https://opengapps.org/">OpenGApps</a>， <a href="https://github.com/topjohnwu/Magisk/releases">Magisk Manager、Magisk</a>， <a href="https://github.com/RikkaApps/Riru/releases">Riru-Core</a>， <a href="https://github.com/ElderDrivers/EdXposed/releases">EdXposed</a> の順になる． EdXposedのYAHFAがつい先日Android10に対応した．</p>
+<h3 class="subtitle is-5" id="lineageos_next">LineageOS（次）</h3>
+<p><a href="https://twrp.me/site/update/2019/10/23/twrp-and-android-10.html" class="uri">https://twrp.me/site/update/2019/10/23/twrp-and-android-10.html</a> この記事を読む限りでは，Android10がプリインストールされたマシンだとカスタムROMのインストール方法が異なるらしい． 現にTWRPが未だAndroid10に対応していない．</p>
+<h2 class="subtitle is-4" id="app">アプリ</h2>
+<ul>
+<li>SuperSU, Xposed / Magisk Manager, EdXposed Manager</li>
+<li>andOTP / FreeOTP</li>
+<li>DroidCam, WiFiAudio</li>
+<li>Nova Launcher</li>
+<li>AIMP, Firefox, Syncthing, X-plore</li>
+<li>Discord, Reddit, Slack, Twitter</li>
+<li>Amazon, Gmail, YouTube</li>
+</ul>
+<h2 class="subtitle is-4" id="devices">個別事例</h2>
+<h3 class="subtitle is-5" id="blueline">Google Pixel 3</h3>
+<ul>
+<li><a href="https://forum.xda-developers.com/pixel-3-xl/development/rom-lineage-17-0-pixel-3-xl-blueline-t4010943" class="uri">https://forum.xda-developers.com/pixel-3-xl/development/rom-lineage-17-0-pixel-3-xl-blueline-t4010943</a></li>
+</ul>
+<p>現時点でTWRPがAndroid10に対応していないので，独自リカバリを<code>boot</code>に焼いた後sideloadでインストール． Magiskについても書かれているが，zipファイルをsideloadしてやってもインストールできた．後で少々怒られて再起動する． Magiskさえインストールできれば，riruとEdXposedはzipを直接インストールせずともMagisk Manager内で完結できる．</p>
+<p>以下は試したもののLineageOSのインストールには繋がらなかった．</p>
+<ul>
+<li><a href="https://twrp.me/google/googlepixel3.html" class="uri">https://twrp.me/google/googlepixel3.html</a></li>
+<li><a href="https://forum.xda-developers.com/showpost.php?p=79995400&amp;postcount=1143" class="uri">https://forum.xda-developers.com/showpost.php?p=79995400&amp;postcount=1143</a></li>
+<li><a href="https://www.cyanogenmods.org/pixel-3-lineageos-17/" class="uri">https://www.cyanogenmods.org/pixel-3-lineageos-17/</a></li>
+</ul>
+<p>TWRPはAndroid9でないと起動しないのでダウングレードしておく． <code>$TMPDIR</code>の容量が十分でない場合にStock ROMの<code>flash-all.sh</code>を実行すると<code>No space left on device</code>が出る． <code>vendor_a</code>が<code>Error reading sparse file</code>を返す場合はケーブルを変えてみる．</p>
+<ul>
+<li><a href="https://developers.google.com/android/images" class="uri">https://developers.google.com/android/images</a></li>
+<li><a href="https://android.stackexchange.com/questions/203779/cant-reinstall-nothing-to-system" class="uri">https://android.stackexchange.com/questions/203779/cant-reinstall-nothing-to-system</a></li>
+</ul>
+<h3 class="subtitle is-5" id="gts4lvwifi">Samsung Galaxy Tab S5e WiFi</h3>
+<ul>
+<li><a href="https://forum.xda-developers.com/tab-s5e/development/rom-lineageos-17-0-t3972371" class="uri">https://forum.xda-developers.com/tab-s5e/development/rom-lineageos-17-0-t3972371</a></li>
+<li><a href="https://twrp.me/samsung/samsunggalaxytabs5ewifi.html" class="uri">https://twrp.me/samsung/samsunggalaxytabs5ewifi.html</a></li>
+</ul>
+<h3 class="subtitle is-5" id="lux">Motorola Moto X Play</h3>
+<ul>
+<li><a href="https://wiki.lineageos.org/devices/lux" class="uri">https://wiki.lineageos.org/devices/lux</a></li>
+</ul>
+<h3 class="subtitle is-5" id="scale">Huawei Y6 (SCL-L02)</h3>
+<ul>
+<li><a href="https://forum.xda-developers.com/huawei-y6/development/rom-lineageos-14-1-huawei-y6-t3541747" class="uri">https://forum.xda-developers.com/huawei-y6/development/rom-lineageos-14-1-huawei-y6-t3541747</a></li>
+</ul>
+<h3 class="subtitle is-5" id="flo">Google Nexus 7 (2013) WiFi</h3>
+<ul>
+<li><a href="https://wiki.lineageos.org/devices/flo" class="uri">https://wiki.lineageos.org/devices/flo</a></li>
+<li><a href="https://forum.xda-developers.com/nexus-7-2013/orig-development/official-cyanogenmod-14-1-nightlies-flo-t3502494" class="uri">https://forum.xda-developers.com/nexus-7-2013/orig-development/official-cyanogenmod-14-1-nightlies-flo-t3502494</a></li>
+<li><a href="https://twrp.me/asus/asusnexus72013wifi.html" class="uri">https://twrp.me/asus/asusnexus72013wifi.html</a></li>
+</ul>
+
+</article>
+        </div>
+      </div>
+    </main>
+    <footer class="footer"><div class="columns">
+      <div class="column">
+        <p>
+          Site proudly generated by
+          <a href="https://jaspervdj.be/hakyll">Hakyll</a>
+        </p>
+        <p>
+          <a href="https://github.com/gtgteq/gtgteq.github.io/issues">
+            Leave comment?
+          </a>
+        </p>
+      </div>
+      <div class="column has-text-right">
+        <p>
+          <a href="../../privacy-policy/">プライバシーポリシー</a>
+        </p>
+        <p>
+          &copy; 2020- gtgteq. All rights reserved.
+        </p>
+      </div>
+    </div></footer>
+  </body>
+</html>
