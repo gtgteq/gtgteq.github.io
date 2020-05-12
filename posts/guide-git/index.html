@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-157525082-1"></script>
+<script>
+if (document.location.hostname != 'localhost') {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-157525082-1');
+}
+</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f0f0f0">
+    <title>&gt;&gt;=✍ - gitスタートガイド</title>
+    <link rel="alternate" href="../../atom.xml" type="application/atom+xml" title="gtgteq blog Atom Feed">
+    <link rel="apple-touch-icon" href="../../icon.png">
+    <link rel="author" href="../../humans.txt" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" integrity="sha384-5kGFOAqgEKnuF6c2jk2JANKHZgYVt38Wn2dVJENtq1EBCP54/1uzXU5mpxqL8WjN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pygments-css@1.0.0/friendly.css" integrity="sha384-ctb3oxMcjS7qFI/8h6gbA8aXLYepqLH/fJuUE0CrNOcM2mtT339FPmcvGadhF6Z/" crossorigin="anonymous">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="../../">&gt;&gt;=✍</a>
+          <a class="navbar-item" href="https://github.com/gtgteq">
+            <i class="fa fa-github" aria-hidden="true"></i>
+          </a>
+          <a class="navbar-item" href="https://twitter.com/gtgteq">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+          </a>
+          <a class="navbar-item" href="https://www.youtube.com/channel/UCMnc4KjmxoqaegRhljC7ScQ/">
+            <i class="fa fa-youtube-play" aria-hidden="true"></i>
+          </a>
+          <a class="navbar-item" href="../../atom.xml">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+          </a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <div class="content">
+<article>
+<h1 class="title is-3">
+  gitスタートガイド
+</h1>
+<div class="has-text-right">
+  <span>
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    2020-05-11
+  </span>
+  <span>
+    <i class="fa fa-refresh" aria-hidden="true"></i>
+    2020-05-12
+  </span>
+</div>
+<p>gitの使い始めに必要な全てを伝授します．</p>
+<h2 class="subtitle is-4" id="インストール">インストール</h2>
+<div class="codehilite"><pre><span></span>nix-shell -p git
+</pre></div>
+
+<p><code>git gui</code>と<code>git send-email</code>が欲しいなら<code>gitFull</code>をインストールする．</p>
+<p><code>nixpkgs/pkgs/applications/version-management/git-and-tools/default.nix</code></p>
+<div class="codehilite"><pre><span></span>  # The full-featured Git.
+  gitFull = gitBase.override {
+    svnSupport = true;
+    guiSupport = true;
+    sendEmailSupport = !stdenv.isDarwin;
+    withLibsecret = !stdenv.isDarwin;
+  };
+</pre></div>
+
+<h2 class="subtitle is-4" id="使い方">使い方</h2>
+<p><a href="https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup" class="uri">https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup</a></p>
+<h3 class="subtitle is-5" id="gitconfig">gitconfig</h3>
+<div class="codehilite"><pre><span></span>$ cat ~/.gitconfig
+[user]
+	name = gtgteq
+	email = gtgteq.operator@gmail.com
+[color]
+	ui = false
+[core]
+	autocrlf = input
+	safecrlf = true
+[push]
+	default = upstream
+[pull]
+	rebase = true
+[branch]
+	autosetuprebase = always
+[alias]
+	hist = log --pretty=format:\&quot;%h %ad %s%d [%an]\&quot; --graph --date=short
+	precommit = diff --cached --diff-algorithm=minimal -w
+</pre></div>
+
+<h3 class="subtitle is-5" id="color-ui-falseについて"><code>[color] ui = false</code>について</h3>
+<p>ターミナルが256色に対応しない場合の設定．</p>
+<h3 class="subtitle is-5" id="crlfについて">CRLFについて</h3>
+<p>gitはテキストファイルについて，改行コードをLFとCRLFのどちらかと仮定している． <code>autocrlf</code>は特にWindowsでLFに揃えたファイルのみコミットするように設定する． Linuxだと<code>input</code>に設定すると良い．</p>
+<p><a href="https://help.github.com/ja/github/using-git/configuring-git-to-handle-line-endings" class="uri">https://help.github.com/ja/github/using-git/configuring-git-to-handle-line-endings</a></p>
+<p><code>safecrlf</code>はLFとCRLFが混在する場合にコミット不可とする設定．</p>
+<p><a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresafecrlf" class="uri">https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresafecrlf</a></p>
+<h3 class="subtitle is-5" id="rebaseとmergeのどちらにすべきか">rebaseとmergeのどちらにすべきか</h3>
+<p>rebaseにしておきましょう．mergeはプロ向けの機能です．でもデフォルトはmergeなんですよね． グローバルなgitconfig(<code>~/.gitconfig</code>)で<code>[pull] rebase = true</code>を指定する理由です．</p>
+<p>pull時にmergeのままだとマージコミットが作成されます．つまり履歴がダイヤモンド型になります． rebaseはpullしたコミットにローカルのコミットを上乗せします．</p>
+<p><a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing" class="uri">https://git-scm.com/book/en/v2/Git-Branching-Rebasing</a></p>
+<h3 class="subtitle is-5" id="日常的に使うコマンド">日常的に使うコマンド</h3>
+<p><code>gitconfig</code>に2文字くらいの<code>alias</code>を作っても良いし，シェルのエイリアスとして設定するのも良い．</p>
+<p>初回設定．<code>(URL)</code>で指定した場所にバックアップされる． この場所を他人が書き換えられるようにすると，作業を分担することができる．</p>
+<div class="codehilite"><pre><span></span>$ git init
+$ git add (file)
+$ git commit -m &quot;Initial commit&quot;
+$ git remote set-url origin (URL)
+$ git push -u origin master
+</pre></div>
+
+<p>2回目以降．上記の設定が完了しているならば， <code>pull</code>の時点でローカルにコミットしていたとしても<code>merge</code>の代わりに<code>rebase</code>されるはず．</p>
+<div class="codehilite"><pre><span></span>$ git pull
+$ git add (file)
+$ git commit -m &quot;commit message&quot;
+$ git push
+</pre></div>
+
+<p>既存のリポジトリを自分の手元に持って来る．</p>
+<div class="codehilite"><pre><span></span>$ git clone (URL)
+</pre></div>
+
+<h3 class="subtitle is-5" id="やや上級者向けのコマンド">やや上級者向けのコマンド</h3>
+<p>知ってるとお得．</p>
+<div class="codehilite"><pre><span></span>$ git add -p (file)
+$ git commit --amend
+$ git rebase -i HEAD\^\^\^
+$ git clone --depth=1
+$ git checkout -b (new branch name)
+$ git init --bare
+$ git bisect
+</pre></div>
+
+
+</article>
+        </div>
+      </div>
+    </main>
+    <footer class="footer"><div class="columns">
+      <div class="column">
+        <p>
+          Site proudly generated by
+          <a href="https://jaspervdj.be/hakyll">Hakyll</a>
+        </p>
+        <p>
+          <a href="https://github.com/gtgteq/gtgteq.github.io/issues">
+            Leave comment?
+          </a>
+        </p>
+      </div>
+      <div class="column has-text-right">
+        <p>
+          <a href="../../privacy-policy/">プライバシーポリシー</a>
+        </p>
+        <p>
+          &copy; 2020- gtgteq. All rights reserved.
+        </p>
+      </div>
+    </div></footer>
+  </body>
+</html>
